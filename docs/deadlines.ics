@@ -122,6 +122,16 @@ DESCRIPTION:End of day\, Anywhere on Earth\nhttps://virtual.aistats.org/C
 TRANSP:TRANSPARENT
 END:VEVENT
 BEGIN:VEVENT
+UID:aistats-2027-rebuttal_end@conference-reminders
+DTSTAMP:20261119T000000Z
+DTSTART;VALUE=DATE:20261122
+DTEND;VALUE=DATE:20261123
+SUMMARY:AISTATS 2027: Rebuttal closes
+DESCRIPTION:End of day\, Anywhere on Earth\nAuto-updated from a tracker -
+  check the official site\nhttps://virtual.aistats.org/Conferences/2027
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
 UID:aistats-2027-decision@conference-reminders
 DTSTAMP:20261119T000000Z
 DTSTART;VALUE=DATE:20270120
@@ -139,6 +149,46 @@ DTEND;VALUE=DATE:20270507
 SUMMARY:AISTATS 2027
 LOCATION:Montreal\, Canada
 DESCRIPTION:https://virtual.aistats.org/Conferences/2027
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:kdd-2027-abstract@conference-reminders
+DTSTAMP:20261119T000000Z
+DTSTART;VALUE=DATE:20260719
+DTEND;VALUE=DATE:20260720
+SUMMARY:KDD 2027: Abstract deadline
+DESCRIPTION:End of day\, Anywhere on Earth\nAuto-updated from a tracker -
+  check the official site\nhttps://kdd2027.kdd.org/
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:kdd-2027-submission@conference-reminders
+DTSTAMP:20261119T000000Z
+DTSTART;VALUE=DATE:20260726
+DTEND;VALUE=DATE:20260727
+SUMMARY:KDD 2027: Paper submission deadline
+DESCRIPTION:End of day\, Anywhere on Earth\nAuto-updated from a tracker -
+  check the official site\nhttps://kdd2027.kdd.org/
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:kdd-2027-rebuttal_end@conference-reminders
+DTSTAMP:20261119T000000Z
+DTSTART;VALUE=DATE:20261013
+DTEND;VALUE=DATE:20261014
+SUMMARY:KDD 2027: Rebuttal closes
+DESCRIPTION:End of day\, Anywhere on Earth\nAuto-updated from a tracker -
+  check the official site\nhttps://kdd2027.kdd.org/
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:kdd-2027-decision@conference-reminders
+DTSTAMP:20261119T000000Z
+DTSTART;VALUE=DATE:20261114
+DTEND;VALUE=DATE:20261115
+SUMMARY:KDD 2027: Decision notification
+DESCRIPTION:Auto-updated from a tracker - check the official site\nhttps:
+ //kdd2027.kdd.org/
 TRANSP:TRANSPARENT
 END:VEVENT
 BEGIN:VEVENT
@@ -210,6 +260,46 @@ DESCRIPTION:https://aaai.org/conference/aaai/aaai-27/
 TRANSP:TRANSPARENT
 END:VEVENT
 BEGIN:VEVENT
+UID:ijcai-2027-abstract@conference-reminders
+DTSTAMP:20261119T000000Z
+DTSTART;VALUE=DATE:20270104
+DTEND;VALUE=DATE:20270105
+SUMMARY:IJCAI 2027: Abstract deadline
+DESCRIPTION:End of day\, Anywhere on Earth\nAuto-updated from a tracker -
+  check the official site\nhttps://www.ijcai.org/
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:ijcai-2027-submission@conference-reminders
+DTSTAMP:20261119T000000Z
+DTSTART;VALUE=DATE:20270111
+DTEND;VALUE=DATE:20270112
+SUMMARY:IJCAI 2027: Paper submission deadline
+DESCRIPTION:End of day\, Anywhere on Earth\nAuto-updated from a tracker -
+  check the official site\nhttps://www.ijcai.org/
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:ijcai-2027-rebuttal_end@conference-reminders
+DTSTAMP:20261119T000000Z
+DTSTART;VALUE=DATE:20270402
+DTEND;VALUE=DATE:20270403
+SUMMARY:IJCAI 2027: Rebuttal closes
+DESCRIPTION:End of day\, Anywhere on Earth\nAuto-updated from a tracker -
+  check the official site\nhttps://www.ijcai.org/
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:ijcai-2027-decision@conference-reminders
+DTSTAMP:20261119T000000Z
+DTSTART;VALUE=DATE:20270421
+DTEND;VALUE=DATE:20270422
+SUMMARY:IJCAI 2027: Decision notification
+DESCRIPTION:Auto-updated from a tracker - check the official site\nhttps:
+ //www.ijcai.org/
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
 UID:ijcai-2027-conference_start@conference-reminders
 DTSTAMP:20261119T000000Z
 DTSTART;VALUE=DATE:20270807
@@ -245,6 +335,16 @@ DTSTART;VALUE=DATE:20261012
 DTEND;VALUE=DATE:20261013
 SUMMARY:NAACL 2027: ARR submission deadline
 DESCRIPTION:End of day\, Anywhere on Earth\nhttps://2027.naacl.org/
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:naacl-2027-rebuttal_end@conference-reminders
+DTSTAMP:20261119T000000Z
+DTSTART;VALUE=DATE:20261130
+DTEND;VALUE=DATE:20261201
+SUMMARY:NAACL 2027: Rebuttal closes
+DESCRIPTION:End of day\, Anywhere on Earth\nAuto-updated from a tracker -
+  check the official site\nhttps://2027.naacl.org/
 TRANSP:TRANSPARENT
 END:VEVENT
 BEGIN:VEVENT
@@ -285,6 +385,16 @@ DESCRIPTION:End of day\, Anywhere on Earth\nhttps://2027.coling-iccl.org/
 TRANSP:TRANSPARENT
 END:VEVENT
 BEGIN:VEVENT
+UID:coling-2027-rebuttal_end@conference-reminders
+DTSTAMP:20261119T000000Z
+DTSTART;VALUE=DATE:20261130
+DTEND;VALUE=DATE:20261201
+SUMMARY:COLING 2027: Rebuttal closes
+DESCRIPTION:End of day\, Anywhere on Earth\nAuto-updated from a tracker -
+  check the official site\nhttps://2027.coling-iccl.org/
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
 UID:coling-2027-commitment@conference-reminders
 DTSTAMP:20261119T000000Z
 DTSTART;VALUE=DATE:20261223
@@ -319,6 +429,16 @@ DTSTART;VALUE=DATE:20260803
 DTEND;VALUE=DATE:20260804
 SUMMARY:EACL 2027: ARR submission deadline
 DESCRIPTION:End of day\, Anywhere on Earth\nhttps://2027.eacl.org/
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:eacl-2027-rebuttal_end@conference-reminders
+DTSTAMP:20261119T000000Z
+DTSTART;VALUE=DATE:20260919
+DTEND;VALUE=DATE:20260920
+SUMMARY:EACL 2027: Rebuttal closes
+DESCRIPTION:End of day\, Anywhere on Earth\nAuto-updated from a tracker -
+  check the official site\nhttps://2027.eacl.org/
 TRANSP:TRANSPARENT
 END:VEVENT
 BEGIN:VEVENT
@@ -367,6 +487,16 @@ DTSTART;VALUE=DATE:20270125
 DTEND;VALUE=DATE:20270126
 SUMMARY:CVPR 2027: Rebuttal opens
 DESCRIPTION:https://cvpr.thecvf.com/Conferences/2027
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:cvpr-2027-rebuttal_end@conference-reminders
+DTSTAMP:20261119T000000Z
+DTSTART;VALUE=DATE:20270201
+DTEND;VALUE=DATE:20270202
+SUMMARY:CVPR 2027: Rebuttal closes
+DESCRIPTION:End of day\, Anywhere on Earth\nAuto-updated from a tracker -
+  check the official site\nhttps://cvpr.thecvf.com/Conferences/2027
 TRANSP:TRANSPARENT
 END:VEVENT
 BEGIN:VEVENT
@@ -575,6 +705,16 @@ DESCRIPTION:Unconfirmed date - check the official site\nhttps://www.asplo
 TRANSP:TRANSPARENT
 END:VEVENT
 BEGIN:VEVENT
+UID:eurosys-2027-abstract@conference-reminders
+DTSTAMP:20261119T000000Z
+DTSTART;VALUE=DATE:20260917
+DTEND;VALUE=DATE:20260918
+SUMMARY:EuroSys 2027: Abstract deadline
+DESCRIPTION:End of day\, Anywhere on Earth\nAuto-updated from a tracker -
+  check the official site\nhttps://2027.eurosys.org/
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
 UID:eurosys-2027-submission@conference-reminders
 DTSTAMP:20261119T000000Z
 DTSTART;VALUE=DATE:20260917
@@ -582,6 +722,16 @@ DTEND;VALUE=DATE:20260918
 SUMMARY:EuroSys 2027: Paper submission deadline
 DESCRIPTION:End of day\, Anywhere on Earth\nUnconfirmed date - check the 
  official site\nhttps://2027.eurosys.org/
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:eurosys-2027-rebuttal_end@conference-reminders
+DTSTAMP:20261119T000000Z
+DTSTART;VALUE=DATE:20270108
+DTEND;VALUE=DATE:20270109
+SUMMARY:EuroSys 2027: Rebuttal closes
+DESCRIPTION:End of day\, Anywhere on Earth\nAuto-updated from a tracker -
+  check the official site\nhttps://2027.eurosys.org/
 TRANSP:TRANSPARENT
 END:VEVENT
 BEGIN:VEVENT
@@ -613,6 +763,16 @@ DTEND;VALUE=DATE:20270115
 SUMMARY:ISMB/ECCB 2027: Proceedings paper deadline
 DESCRIPTION:End of day\, Anywhere on Earth\nUnconfirmed date - check the 
  official site\nhttps://www.iscb.org/
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:ismb-2027-decision@conference-reminders
+DTSTAMP:20261119T000000Z
+DTSTART;VALUE=DATE:20270330
+DTEND;VALUE=DATE:20270331
+SUMMARY:ISMB/ECCB 2027: Decision notification
+DESCRIPTION:Auto-updated from a tracker - check the official site\nhttps:
+ //www.iscb.org/
 TRANSP:TRANSPARENT
 END:VEVENT
 BEGIN:VEVENT
