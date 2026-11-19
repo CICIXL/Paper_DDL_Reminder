@@ -329,20 +329,21 @@ DESCRIPTION:https://2027.aclweb.org/
 TRANSP:TRANSPARENT
 END:VEVENT
 BEGIN:VEVENT
-UID:naacl-2027-submission@conference-reminders
-DTSTAMP:20261119T000000Z
-DTSTART;VALUE=DATE:20261012
-DTEND;VALUE=DATE:20261013
-SUMMARY:NAACL 2027: ARR submission deadline
-DESCRIPTION:End of day\, Anywhere on Earth\nhttps://2027.naacl.org/
-TRANSP:TRANSPARENT
-END:VEVENT
-BEGIN:VEVENT
 UID:naacl-2027-rebuttal_end@conference-reminders
 DTSTAMP:20261119T000000Z
 DTSTART;VALUE=DATE:20261130
 DTEND;VALUE=DATE:20261201
 SUMMARY:NAACL 2027: Rebuttal closes
+DESCRIPTION:End of day\, Anywhere on Earth\nAuto-updated from a tracker -
+  check the official site\nhttps://2027.naacl.org/
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:naacl-2027-submission@conference-reminders
+DTSTAMP:20261119T000000Z
+DTSTART;VALUE=DATE:20261223
+DTEND;VALUE=DATE:20261224
+SUMMARY:NAACL 2027: ARR submission deadline
 DESCRIPTION:End of day\, Anywhere on Earth\nAuto-updated from a tracker -
   check the official site\nhttps://2027.naacl.org/
 TRANSP:TRANSPARENT
@@ -376,20 +377,21 @@ DESCRIPTION:https://2027.naacl.org/
 TRANSP:TRANSPARENT
 END:VEVENT
 BEGIN:VEVENT
-UID:coling-2027-submission@conference-reminders
-DTSTAMP:20261119T000000Z
-DTSTART;VALUE=DATE:20261012
-DTEND;VALUE=DATE:20261013
-SUMMARY:COLING 2027: ARR submission deadline
-DESCRIPTION:End of day\, Anywhere on Earth\nhttps://2027.coling-iccl.org/
-TRANSP:TRANSPARENT
-END:VEVENT
-BEGIN:VEVENT
 UID:coling-2027-rebuttal_end@conference-reminders
 DTSTAMP:20261119T000000Z
 DTSTART;VALUE=DATE:20261130
 DTEND;VALUE=DATE:20261201
 SUMMARY:COLING 2027: Rebuttal closes
+DESCRIPTION:End of day\, Anywhere on Earth\nAuto-updated from a tracker -
+  check the official site\nhttps://2027.coling-iccl.org/
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:coling-2027-submission@conference-reminders
+DTSTAMP:20261119T000000Z
+DTSTART;VALUE=DATE:20261223
+DTEND;VALUE=DATE:20261224
+SUMMARY:COLING 2027: ARR submission deadline
 DESCRIPTION:End of day\, Anywhere on Earth\nAuto-updated from a tracker -
   check the official site\nhttps://2027.coling-iccl.org/
 TRANSP:TRANSPARENT
@@ -717,11 +719,11 @@ END:VEVENT
 BEGIN:VEVENT
 UID:eurosys-2027-submission@conference-reminders
 DTSTAMP:20261119T000000Z
-DTSTART;VALUE=DATE:20260917
-DTEND;VALUE=DATE:20260918
+DTSTART;VALUE=DATE:20260924
+DTEND;VALUE=DATE:20260925
 SUMMARY:EuroSys 2027: Paper submission deadline
-DESCRIPTION:End of day\, Anywhere on Earth\nUnconfirmed date - check the 
- official site\nhttps://2027.eurosys.org/
+DESCRIPTION:End of day\, Anywhere on Earth\nAuto-updated from a tracker -
+  check the official site\nhttps://2027.eurosys.org/
 TRANSP:TRANSPARENT
 END:VEVENT
 BEGIN:VEVENT
