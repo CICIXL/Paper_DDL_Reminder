@@ -1,0 +1,5 @@
+# Real email addresses stay off GitHub.
+subscribers.txt
+__pycache__/
+*.pyc
+.DS_Store

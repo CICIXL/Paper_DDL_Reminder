@@ -1,0 +1,387 @@
+# =============================================================================
+#  CONFERENCE DATA  -  this is the only file you normally need to edit.
+# =============================================================================
+#
+#  HOW TO EDIT
+#  - Each conference is one block starting with [[conference]].
+#  - Dates are written YYYY-MM-DD with NO quotes, e.g.  submission = 2027-01-22
+#  - If a date is not announced yet, just leave that line out (or put a # in
+#    front of it). The site shows "TBA" and no reminder is sent for it.
+#  - Lines starting with # are comments and are ignored.
+#
+#  DATE FIELDS YOU CAN USE (all optional)
+#    abstract          abstract / paper registration deadline
+#    submission        full paper deadline
+#    commitment        ARR commitment deadline (NLP conferences)
+#    rebuttal_start    reviews released / author response opens
+#    rebuttal_end      author response closes
+#    decision          accept / reject notification
+#    conference_start  first day of the conference
+#    conference_end    last day of the conference
+#
+#  OTHER FIELDS
+#    areas             any of: "ML", "AI", "NLP", "Vision", "Systems", "AI for Science"
+#    unverified        list of date fields that came from a third-party tracker
+#                      rather than the official site, e.g. ["decision"].
+#                      They are shown with an "unconfirmed" tag.
+#    time_note         what time of day the deadline falls (default: end of day,
+#                      Anywhere on Earth)
+#    deadline_time_utc only if the deadline is NOT end-of-day Anywhere on Earth:
+#                      the UTC clock time on the listed date, e.g. "22:59"
+#    submission_label  custom wording for the submission row
+#    note              free text shown on the card
+#    tracker           the conference's short name(s) on the ccfddl tracker, used
+#                      by the daily automatic sync (see sync_dates.py)
+#
+#  AUTOMATIC UPDATES
+#  Every day sync_dates.py compares this file with the community tracker.
+#  New and moved dates go live by themselves with an "auto-updated" tag; they
+#  are stored in state/tracker.json, not here. To confirm one, type the date
+#  into this file. Anything you type here always wins over the tracker.
+# =============================================================================
+
+[settings]
+site_title = "Conference Deadlines 2027"
+site_tagline = "Submission, rebuttal, decision and conference dates for the big ML, NLP, systems and AI-for-science venues."
+# After you turn on GitHub Pages, paste your site address here so emails can link to it.
+site_url = ""
+# Optional: a link people can use to ask for reminders (a Google Form, or "mailto:you@example.com").
+signup_url = ""
+# The last day someone checked these dates against the official sites.
+# Update it whenever you re-check; it is shown at the bottom of the page.
+dates_verified = "Nov 19, 2026"
+# Name shown as the sender of reminder emails.
+email_from_name = "Conference Reminders"
+
+# How many days before each kind of date a reminder goes out. 0 = on the day.
+# Edit these lists to get more or fewer nudges.
+[reminders]
+abstract         = [7, 1]
+submission       = [30, 7, 1]
+commitment       = [7, 1]
+rebuttal_start   = [0]
+rebuttal_end     = [1]
+decision         = [0]
+conference_start = [30]
+
+
+# ----------------------------- MACHINE LEARNING ------------------------------
+
+[[conference]]
+id = "icml-2027"
+tracker = ["ICML"]
+name = "ICML 2027"
+full_name = "International Conference on Machine Learning"
+areas = ["ML"]
+location = "Rio de Janeiro, Brazil"
+url = "https://icml.cc/Conferences/2027"
+abstract = 2027-01-14
+submission = 2027-01-22
+decision = 2027-05-03
+conference_start = 2027-07-31
+conference_end = 2027-08-06
+note = "First-stage rejection notices go out Feb 23, 2027. The rebuttal window is not posted yet. Main conference is Aug 2-4."
+
+[[conference]]
+id = "iclr-2027"
+tracker = ["ICLR"]
+name = "ICLR 2027"
+full_name = "International Conference on Learning Representations"
+areas = ["ML"]
+location = "California, USA (venue not yet on the official dates page)"
+url = "https://iclr.cc/Conferences/2027"
+abstract = 2026-09-18
+submission = 2026-09-25
+rebuttal_start = 2026-11-05
+rebuttal_end = 2026-11-18
+decision = 2026-12-16
+conference_start = 2027-04-26
+conference_end = 2027-04-30
+note = "Main conference Apr 26-28, workshops Apr 29-30."
+
+[[conference]]
+id = "neurips-2027"
+tracker = ["NeurIPS", "NIPS"]
+name = "NeurIPS 2027"
+full_name = "Conference on Neural Information Processing Systems"
+areas = ["ML"]
+location = "Europe (city not announced)"
+url = "https://neurips.cc/"
+note = "No 2027 dates yet. In recent years abstracts were due in mid-May, full papers about a week later, and the conference ran in early December."
+
+[[conference]]
+id = "aistats-2027"
+tracker = ["AISTATS"]
+name = "AISTATS 2027"
+full_name = "International Conference on Artificial Intelligence and Statistics"
+areas = ["ML"]
+location = "Montreal, Canada"
+url = "https://virtual.aistats.org/Conferences/2027"
+abstract = 2026-09-29
+submission = 2026-10-06
+decision = 2027-01-20
+conference_start = 2027-05-03
+conference_end = 2027-05-06
+unverified = ["decision"]
+note = "Decision date comes from deadline trackers; the official committee page still lists it as to be confirmed."
+
+[[conference]]
+id = "uai-2027"
+tracker = ["UAI"]
+name = "UAI 2027"
+full_name = "Conference on Uncertainty in Artificial Intelligence"
+areas = ["ML"]
+location = "Not announced"
+url = "https://www.auai.org/"
+note = "No 2027 dates yet. The UAI 2026 paper deadline was in late February 2026."
+
+[[conference]]
+id = "kdd-2027"
+tracker = ["KDD", "SIGKDD"]
+name = "KDD 2027"
+full_name = "ACM SIGKDD Conference on Knowledge Discovery and Data Mining"
+areas = ["ML", "AI for Science"]
+location = "San Jose, USA"
+url = "https://kdd2027.kdd.org/"
+conference_start = 2027-08-01
+conference_end = 2027-08-05
+note = "Has a dedicated AI for Sciences track. Cycle 1 closed in July 2026. The Cycle 2 deadline is expected in February 2027 but the exact date is not posted yet - add it here as 'submission' when it is."
+
+# ------------------------------- GENERAL AI ----------------------------------
+
+[[conference]]
+id = "aaai-2027"
+tracker = ["AAAI"]
+name = "AAAI-27"
+full_name = "AAAI Conference on Artificial Intelligence"
+areas = ["AI"]
+location = "Montreal, Canada"
+url = "https://aaai.org/conference/aaai/aaai-27/"
+abstract = 2026-07-21
+submission = 2026-07-28
+rebuttal_start = 2026-10-24
+rebuttal_end = 2026-10-31
+decision = 2026-11-30
+conference_start = 2027-02-16
+conference_end = 2027-02-23
+
+[[conference]]
+id = "ijcai-2027"
+tracker = ["IJCAI"]
+name = "IJCAI 2027"
+full_name = "International Joint Conference on Artificial Intelligence"
+areas = ["AI"]
+location = "Kyoto, Japan"
+url = "https://www.ijcai.org/"
+conference_start = 2027-08-07
+conference_end = 2027-08-13
+note = "Call for papers not found on the official site yet. Last cycle's abstract deadline was mid-January, so check ijcai.org soon. A satellite event runs in Hengqin, China on Aug 15-17."
+
+# ---------------------------------- NLP --------------------------------------
+
+[[conference]]
+id = "acl-2027"
+tracker = ["ACL"]
+name = "ACL 2027"
+full_name = "Annual Meeting of the Association for Computational Linguistics"
+areas = ["NLP"]
+location = "Kyoto, Japan"
+url = "https://2027.aclweb.org/"
+submission = 2027-01-04
+submission_label = "ARR submission deadline"
+conference_start = 2027-08-17
+conference_end = 2027-08-22
+note = "Reviewed through ACL Rolling Review. Commitment and notification dates are still TBA on the official site. Main conference is Aug 20-22."
+
+[[conference]]
+id = "naacl-2027"
+tracker = ["NAACL"]
+name = "NAACL 2027"
+full_name = "Nations of the Americas Chapter of the ACL"
+areas = ["NLP"]
+location = "San Francisco, USA"
+url = "https://2027.naacl.org/"
+submission = 2026-10-12
+submission_label = "ARR submission deadline"
+commitment = 2026-12-23
+decision = 2027-02-10
+conference_start = 2027-06-01
+conference_end = 2027-06-05
+note = "Meta-reviews are released Dec 18, 2026. Shares the October ARR cycle with COLING 2027."
+
+[[conference]]
+id = "coling-2027"
+tracker = ["COLING"]
+name = "COLING 2027"
+full_name = "International Conference on Computational Linguistics"
+areas = ["NLP"]
+location = "Macau, China"
+url = "https://2027.coling-iccl.org/"
+submission = 2026-10-12
+submission_label = "ARR submission deadline"
+commitment = 2026-12-23
+decision = 2027-02-10
+conference_start = 2027-05-09
+conference_end = 2027-05-14
+
+[[conference]]
+id = "eacl-2027"
+tracker = ["EACL"]
+name = "EACL 2027"
+full_name = "European Chapter of the ACL"
+areas = ["NLP"]
+location = "Athens, Greece"
+url = "https://2027.eacl.org/"
+submission = 2026-08-03
+submission_label = "ARR submission deadline"
+commitment = 2026-10-11
+conference_start = 2027-03-09
+conference_end = 2027-03-14
+
+[[conference]]
+id = "emnlp-2027"
+tracker = ["EMNLP"]
+name = "EMNLP 2027"
+full_name = "Conference on Empirical Methods in Natural Language Processing"
+areas = ["NLP"]
+location = "Mexico or Central America (tentative)"
+url = "https://www.aclweb.org/portal/"
+note = "Tentatively early November 2027; no exact dates yet. The EMNLP 2026 ARR deadline was in late May 2026."
+
+# --------------------------------- VISION ------------------------------------
+
+[[conference]]
+id = "cvpr-2027"
+tracker = ["CVPR"]
+name = "CVPR 2027"
+full_name = "IEEE/CVF Conference on Computer Vision and Pattern Recognition"
+areas = ["Vision"]
+location = "Seattle, USA"
+url = "https://cvpr.thecvf.com/Conferences/2027"
+abstract = 2026-11-10
+submission = 2026-11-16
+rebuttal_start = 2027-01-25
+decision = 2027-02-25
+conference_start = 2027-06-20
+conference_end = 2027-06-25
+note = "Reviews are released Jan 25, 2027; the rebuttal closing date is not posted yet."
+
+[[conference]]
+id = "iccv-2027"
+tracker = ["ICCV"]
+name = "ICCV 2027"
+full_name = "IEEE/CVF International Conference on Computer Vision"
+areas = ["Vision"]
+location = "Hong Kong"
+url = "https://iccv.thecvf.com/"
+conference_start = 2027-10-02
+conference_end = 2027-10-08
+note = "Call for papers not out yet. The ICCV 2025 paper deadline was in early March, so expect something similar."
+
+# --------------------------------- SYSTEMS -----------------------------------
+
+[[conference]]
+id = "mlsys-2027"
+tracker = ["MLSys"]
+name = "MLSys 2027"
+full_name = "Conference on Machine Learning and Systems"
+areas = ["Systems", "ML"]
+location = "Bellevue, USA"
+url = "https://mlsys.org/Conferences/2027"
+submission = 2026-10-30
+rebuttal_start = 2027-01-18
+rebuttal_end = 2027-01-21
+decision = 2027-02-28
+conference_start = 2027-06-21
+conference_end = 2027-06-25
+time_note = "Author responses are due at 12:00 noon US Pacific on Jan 21"
+
+[[conference]]
+id = "osdi-2027"
+tracker = ["OSDI"]
+name = "OSDI '27"
+full_name = "USENIX Symposium on Operating Systems Design and Implementation"
+areas = ["Systems"]
+location = "Baltimore, USA"
+url = "https://www.usenix.org/conference/osdi27"
+abstract = 2026-12-01
+submission = 2026-12-08
+decision = 2027-03-16
+conference_start = 2027-07-07
+conference_end = 2027-07-09
+time_note = "5:59 pm US Eastern (not Anywhere on Earth)"
+deadline_time_utc = "22:59"
+
+[[conference]]
+id = "nsdi-2027"
+tracker = ["NSDI"]
+name = "NSDI '27"
+full_name = "USENIX Symposium on Networked Systems Design and Implementation"
+areas = ["Systems"]
+location = "Providence, USA"
+url = "https://www.usenix.org/conference/nsdi27"
+abstract = 2026-09-10
+submission = 2026-09-17
+decision = 2026-12-08
+conference_start = 2027-05-11
+conference_end = 2027-05-13
+note = "Dates shown are for the fall deadline. The spring deadline for NSDI '28 is usually in April."
+
+[[conference]]
+id = "asplos-2027"
+tracker = ["ASPLOS"]
+name = "ASPLOS 2027"
+full_name = "Architectural Support for Programming Languages and Operating Systems"
+areas = ["Systems"]
+location = "Heraklion, Greece"
+url = "https://www.asplos-conference.org/"
+submission = 2026-09-09
+rebuttal_start = 2026-12-01
+rebuttal_end = 2026-12-04
+decision = 2026-12-21
+conference_start = 2027-04-11
+conference_end = 2027-04-15
+unverified = ["decision", "conference_start"]
+note = "Dates shown are for the September cycle. The first ASPLOS 2028 cycle usually closes in April."
+
+[[conference]]
+id = "eurosys-2027"
+tracker = ["EuroSys"]
+name = "EuroSys 2027"
+full_name = "European Conference on Computer Systems"
+areas = ["Systems"]
+location = "Rabat, Morocco"
+url = "https://2027.eurosys.org/"
+submission = 2026-09-17
+decision = 2027-01-29
+conference_start = 2027-04-19
+conference_end = 2027-04-24
+unverified = ["submission", "decision", "conference_start"]
+note = "Dates shown are for the fall cycle and come from deadline trackers."
+
+[[conference]]
+id = "sosp-2027"
+tracker = ["SOSP"]
+name = "SOSP 2027"
+full_name = "ACM Symposium on Operating Systems Principles"
+areas = ["Systems"]
+location = "Not announced"
+url = "https://www.sigops.org/"
+note = "No 2027 dates yet. The SOSP 2026 paper deadline was in late March 2026."
+
+# ----------------------------- AI FOR SCIENCE --------------------------------
+
+[[conference]]
+id = "ismb-2027"
+tracker = ["ISMB"]
+name = "ISMB/ECCB 2027"
+full_name = "Intelligent Systems for Molecular Biology / European Conference on Computational Biology"
+areas = ["AI for Science"]
+location = "Copenhagen, Denmark"
+url = "https://www.iscb.org/"
+submission = 2027-01-14
+submission_label = "Proceedings paper deadline"
+conference_start = 2027-07-18
+conference_end = 2027-07-22
+unverified = ["submission"]
+note = "Proceedings papers are published in the journal Bioinformatics. Abstract-only talks and posters have a later deadline, usually in April."

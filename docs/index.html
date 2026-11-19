@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Conference Deadlines 2027</title>
+<meta name="description" content="Submission, rebuttal, decision and conference dates for the big ML, NLP, systems and AI-for-science venues.">
+<style>
+:root {
+  --bg: #f6f4ef; --card: #fffdf8; --ink: #1d1b16; --muted: #6b665c; --line: #e4dfd3;
+  --soft: #efebe2; --warn: #9a5b00; --urgent: #b3261e;
+  --ml: #2f5fd0; --ai: #7a4fd1; --nlp: #0f7f66; --vision: #b8500f; --systems: #ab3358; --sci: #55750f;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #14130f; --card: #1d1c17; --ink: #ece8dd; --muted: #a39d8f; --line: #34322a;
+    --soft: #26241e; --warn: #e2a84b; --urgent: #ff8a80;
+    --ml: #8fb0ff; --ai: #c0a2ff; --nlp: #5fd3b6; --vision: #ffa66b; --systems: #ff8fb0; --sci: #b5d66a;
+  }
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink);
+  font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+a { color: inherit; }
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 20px; }
+
+.a-ml { --accent: var(--ml); } .a-ai { --accent: var(--ai); } .a-nlp { --accent: var(--nlp); }
+.a-vision { --accent: var(--vision); } .a-systems { --accent: var(--systems); }
+.a-ai-for-science { --accent: var(--sci); }
+
+.top { padding: 44px 0 20px; }
+.eyebrow { font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 0 0 8px; }
+h1 { font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  font-size: clamp(32px, 6vw, 52px); line-height: 1.05; margin: 0 0 12px; font-weight: 600; letter-spacing: -.01em; text-wrap: balance; }
+.tagline { font-size: 18px; color: var(--muted); max-width: 46em; margin: 0 0 18px; }
+.actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.btn { display: inline-block; padding: 9px 16px; border-radius: 999px; border: 1px solid var(--line);
+  background: var(--card); text-decoration: none; font-size: 15px; font-weight: 600; }
+.btn.primary { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.btn:hover { border-color: var(--ink); }
+
+.nextup { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; margin: 14px 0 22px; }
+.nextup h2 { font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 0 0 6px; font-weight: 600; }
+.nextup ol { list-style: none; margin: 0; padding: 0; }
+.nextup li { display: grid; grid-template-columns: 4.2em 1fr auto; gap: 12px; align-items: baseline;
+  padding: 9px 0; border-top: 1px solid var(--line); }
+.nextup li:first-child { border-top: 0; }
+.nu-date { font-weight: 700; color: var(--accent, var(--ink)); font-variant-numeric: tabular-nums; }
+.nu-what { min-width: 0; }
+.nu-count { font: 600 14px/1.4 ui-monospace, "SF Mono", Menlo, Consolas, monospace; white-space: nowrap; color: var(--muted); }
+.nu-count.soon { color: var(--urgent); }
+.nextup .empty { color: var(--muted); padding: 6px 0; }
+
+.filters { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 18px; }
+.filter { font: inherit; font-size: 14px; font-weight: 600; cursor: pointer; padding: 7px 14px; border-radius: 999px;
+  border: 1px solid var(--line); background: transparent; color: var(--accent, var(--ink)); }
+.filter.on { background: var(--accent, var(--ink)); color: var(--bg); border-color: var(--accent, var(--ink)); }
+.filter:focus-visible, .btn:focus-visible, a:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 330px), 1fr)); gap: 16px; }
+.card { background: var(--card); border: 1px solid var(--line); border-top: 4px solid var(--accent, var(--muted));
+  border-radius: 14px; padding: 18px 18px 16px; display: flex; flex-direction: column; min-width: 0; }
+.card.done { opacity: .62; }
+.titleline { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+.card h2 { font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif; font-size: 25px; line-height: 1.15; margin: 0; font-weight: 600; }
+.card h2 a { text-decoration: none; }
+.card h2 a:hover { text-decoration: underline; }
+.chips { display: flex; flex-wrap: wrap; gap: 5px; justify-content: flex-end; padding-top: 4px; }
+.chip { font-size: 11px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; white-space: nowrap;
+  color: var(--accent, var(--muted)); border: 1px solid currentColor; border-radius: 999px; padding: 1px 8px; }
+.full { margin: 4px 0 0; font-size: 14px; color: var(--muted); }
+.where { margin: 2px 0 0; font-size: 14px; }
+.next { margin: 14px 0 12px; padding: 10px 12px; background: var(--soft); border-radius: 10px; display: flex; flex-direction: column; }
+.next-label { font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+.next-count { font: 700 21px/1.3 ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-variant-numeric: tabular-nums; }
+.next.soon .next-count { color: var(--urgent); }
+.next.quiet .next-count { font: 600 16px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; color: var(--muted); }
+.rows { list-style: none; margin: 0; padding: 0; }
+.row { display: grid; grid-template-columns: 7.2em 1fr; column-gap: 10px; padding: 7px 0; border-top: 1px solid var(--line); font-size: 15px; }
+.row .k { color: var(--muted); grid-row: 1 / span 2; }
+.row .v { font-weight: 600; min-width: 0; }
+.row .rel { grid-column: 2; font-size: 13px; color: var(--muted); }
+.row.tba .v { font-weight: 400; color: var(--muted); }
+.row.past .v { font-weight: 400; color: var(--muted); text-decoration: line-through; text-decoration-thickness: 1px; }
+.row.live .rel { color: var(--accent, var(--ink)); font-weight: 700; }
+.tag { font-size: 11px; font-weight: 700; letter-spacing: .03em; text-transform: uppercase; color: var(--warn);
+  border: 1px solid currentColor; border-radius: 4px; padding: 0 5px; margin-left: 4px; white-space: nowrap; text-decoration: none; display: inline-block; }
+.note { font-size: 13.5px; color: var(--muted); margin: 10px 0 0; }
+.note.warn { color: var(--warn); }
+.official { margin-top: auto; padding-top: 12px; font-size: 14px; font-weight: 600; text-decoration: none; color: var(--accent, var(--ink)); }
+.official:hover { text-decoration: underline; }
+[hidden] { display: none !important; }
+
+footer { color: var(--muted); font-size: 13.5px; padding: 30px 0 50px; }
+footer p { margin: 0 0 6px; max-width: 60em; }
+@media (max-width: 520px) {
+  .top { padding-top: 28px; }
+  .nextup li { grid-template-columns: 3.8em 1fr; }
+  .nu-count { grid-column: 2; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <section class="top">
+    <p class="eyebrow">22 conferences tracked</p>
+    <h1>Conference Deadlines 2027</h1>
+    <p class="tagline">Submission, rebuttal, decision and conference dates for the big ML, NLP, systems and AI-for-science venues.</p>
+    <div class="actions">
+      
+      <a class="btn" href="deadlines.ics">Add to calendar (.ics)</a>
+    </div>
+  </section>
+
+  <section class="nextup" aria-label="Next deadlines">
+    <h2>Next up</h2>
+    <ol id="nextup"><li class="a-ai" data-t="1796040000000" data-d="0" data-areas="AI"><span class="nu-date">Nov 30</span><span class="nu-what"><strong>AAAI-27</strong> Decision notification</span><span class="nu-count"></span></li><li class="a-systems" data-t="1796126400000" data-d="0" data-areas="Systems"><span class="nu-date">Dec 1</span><span class="nu-what"><strong>ASPLOS 2027</strong> Rebuttal opens</span><span class="nu-count"></span></li><li class="a-systems" data-t="1796165999000" data-d="1" data-areas="Systems"><span class="nu-date">Dec 1</span><span class="nu-what"><strong>OSDI &#x27;27</strong> Abstract deadline</span><span class="nu-count"></span></li><li class="a-systems" data-t="1796471999000" data-d="1" data-areas="Systems"><span class="nu-date">Dec 4</span><span class="nu-what"><strong>ASPLOS 2027</strong> Rebuttal closes</span><span class="nu-count"></span></li><li class="a-systems" data-t="1796731200000" data-d="0" data-areas="Systems"><span class="nu-date">Dec 8</span><span class="nu-what"><strong>NSDI &#x27;27</strong> Decision notification</span><span class="nu-count"></span></li><li class="a-systems" data-t="1796770799000" data-d="1" data-areas="Systems"><span class="nu-date">Dec 8</span><span class="nu-what"><strong>OSDI &#x27;27</strong> Paper submission deadline</span><span class="nu-count"></span></li><li class="a-ml" data-t="1797422400000" data-d="0" data-areas="ML"><span class="nu-date">Dec 16</span><span class="nu-what"><strong>ICLR 2027</strong> Decision notification</span><span class="nu-count"></span></li><li class="a-systems" data-t="1797854400000" data-d="0" data-areas="Systems"><span class="nu-date">Dec 21</span><span class="nu-what"><strong>ASPLOS 2027</strong> Decision notification</span><span class="nu-count"></span></li><li class="a-nlp" data-t="1798113599000" data-d="1" data-areas="NLP"><span class="nu-date">Dec 23</span><span class="nu-what"><strong>COLING 2027</strong> Commitment deadline</span><span class="nu-count"></span></li><li class="a-nlp" data-t="1798113599000" data-d="1" data-areas="NLP"><span class="nu-date">Dec 23</span><span class="nu-what"><strong>NAACL 2027</strong> Commitment deadline</span><span class="nu-count"></span></li><li class="a-nlp" data-t="1799150399000" data-d="1" data-areas="NLP"><span class="nu-date">Jan 4</span><span class="nu-what"><strong>ACL 2027</strong> ARR submission deadline</span><span class="nu-count"></span></li><li class="a-ml" data-t="1800014399000" data-d="1" data-areas="ML"><span class="nu-date">Jan 14</span><span class="nu-what"><strong>ICML 2027</strong> Abstract deadline</span><span class="nu-count"></span></li></ol>
+  </section>
+
+  <nav class="filters" aria-label="Filter by area"><button class="filter on" data-area="">All</button><button class="filter a-ml" data-area="ML">ML</button><button class="filter a-ai-for-science" data-area="AI for Science">AI for Science</button><button class="filter a-ai" data-area="AI">AI</button><button class="filter a-nlp" data-area="NLP">NLP</button><button class="filter a-vision" data-area="Vision">Vision</button><button class="filter a-systems" data-area="Systems">Systems</button></nav>
+
+  <main class="grid" id="grid">
+<article class="card a-ai" data-areas="AI"
+         data-milestones='[{&quot;l&quot;: &quot;Abstract deadline&quot;, &quot;t&quot;: 1784721599000, &quot;d&quot;: true}, {&quot;l&quot;: &quot;Paper submission deadline&quot;, &quot;t&quot;: 1785326399000, &quot;d&quot;: true}, {&quot;l&quot;: &quot;Rebuttal opens&quot;, &quot;t&quot;: 1792843200000, &quot;d&quot;: false}, {&quot;l&quot;: &quot;Rebuttal closes&quot;, &quot;t&quot;: 1793534399000, &quot;d&quot;: true}, {&quot;l&quot;: &quot;Decision notification&quot;, &quot;t&quot;: 1796040000000, &quot;d&quot;: false}, {&quot;l&quot;: &quot;Conference starts&quot;, &quot;t&quot;: 1802779200000, &quot;d&quot;: false}]' data-conf-end="1803470399000">
+  <header>
+    <div class="titleline"><h2><a href="https://aaai.org/conference/aaai/aaai-27/" target="_blank" rel="noopener">AAAI-27</a></h2><div class="chips"><span class="chip a-ai">AI</span></div></div>
+    <p class="full">AAAI Conference on Artificial Intelligence</p>
+    <p class="where">Montreal, Canada</p>
+  </header>
+  <div class="next"><span class="next-label">&nbsp;</span><span class="next-count">&nbsp;</span></div>
+  <ul class="rows"><li class="row" data-kind="abstract" data-ts="1784721599000"><span class="k">Abstract</span><span class="v">Tue, Jul 21, 2026</span><span class="rel"></span></li><li class="row" data-kind="submission" data-ts="1785326399000"><span class="k">Submission</span><span class="v">Tue, Jul 28, 2026</span><span class="rel"></span></li><li class="row" data-kind="rebuttal" data-ts="1793534399000" data-start="1792843200000"><span class="k">Rebuttal</span><span class="v">Oct 24–31, 2026</span><span class="rel"></span></li><li class="row" data-kind="decision" data-ts="1796040000000"><span class="k">Decision</span><span class="v">Mon, Nov 30, 2026</span><span class="rel"></span></li><li class="row" data-kind="conference" data-ts="1803470399000" data-start="1802779200000"><span class="k">Conference</span><span class="v">Feb 16–23, 2027</span><span class="rel"></span></li></ul>
+  
+  <a class="official" href="https://aaai.org/conference/aaai/aaai-27/" target="_blank" rel="noopener">Official site &rarr;</a>
+</article>
+<article class="card a-systems" data-areas="Systems"
+         data-milestones='[{&quot;l&quot;: &quot;Paper submission deadline&quot;, &quot;t&quot;: 1789041599000, &quot;d&quot;: true}, {&quot;l&quot;: &quot;Rebuttal opens&quot;, &quot;t&quot;: 1796126400000, &quot;d&quot;: false}, {&quot;l&quot;: &quot;Rebuttal closes&quot;, &quot;t&quot;: 1796471999000, &quot;d&quot;: true}, {&quot;l&quot;: &quot;Decision notification&quot;, &quot;t&quot;: 1797854400000, &quot;d&quot;: false}, {&quot;l&quot;: &quot;Conference starts&quot;, &quot;t&quot;: 1807444800000, &quot;d&quot;: false}]' data-conf-end="1807876799000">
+  <header>
+    <div class="titleline"><h2><a href="https://www.asplos-conference.org/" target="_blank" rel="noopener">ASPLOS 2027</a></h2><div class="chips"><span class="chip a-systems">Systems</span></div></div>
+    <p class="full">Architectural Support for Programming Languages and Operating Systems</p>
+    <p class="where">Heraklion, Greece</p>
+  </header>
+  <div class="next"><span class="next-label">&nbsp;</span><span class="next-count">&nbsp;</span></div>
+  <ul class="rows"><li class="row" data-kind="submission" data-ts="1789041599000"><span class="k">Submission</span><span class="v">Wed, Sep 9, 2026</span><span class="rel"></span></li><li class="row" data-kind="rebuttal" data-ts="1796471999000" data-start="1796126400000"><span class="k">Rebuttal</span><span class="v">Dec 1–4, 2026</span><span class="rel"></span></li><li class="row" data-kind="decision" data-ts="1797854400000"><span class="k">Decision</span><span class="v">Mon, Dec 21, 2026 <span class="tag">unconfirmed</span></span><span class="rel"></span></li><li class="row" data-kind="conference" data-ts="1807876799000" data-start="1807444800000"><span class="k">Conference</span><span class="v">Apr 11–15, 2027 <span class="tag">unconfirmed</span></span><span class="rel"></span></li></ul>
+  <p class="note">Dates shown are for the September cycle. The first ASPLOS 2028 cycle usually closes in April.</p>
+  <a class="official" href="https://www.asplos-conference.org/" target="_blank" rel="noopener">Official site &rarr;</a>
+</article>
+<article class="card a-systems" data-areas="Systems"
+         data-milestones='[{&quot;l&quot;: &quot;Abstract deadline&quot;, &quot;t&quot;: 1796165999000, &quot;d&quot;: true}, {&quot;l&quot;: &quot;Paper submission deadline&quot;, &quot;t&quot;: 1796770799000, &quot;d&quot;: true}, {&quot;l&quot;: &quot;Decision notification&quot;, &quot;t&quot;: 1805198400000, &quot;d&quot;: false}, {&quot;l&quot;: &quot;Conference starts&quot;, &quot;t&quot;: 1814961600000, &quot;d&quot;: false}]' data-conf-end="1815220799000">
+  <header>
+    <div class="titleline"><h2><a href="https://www.usenix.org/conference/osdi27" target="_blank" rel="noopener">OSDI &#x27;27</a></h2><div class="chips"><span class="chip a-systems">Systems</span></div></div>
+    <p class="full">USENIX Symposium on Operating Systems Design and Implementation</p>
+    <p class="where">Baltimore, USA</p>
+  </header>
+  <div class="next"><span class="next-label">&nbsp;</span><span class="next-count">&nbsp;</span></div>
+  <ul class="rows"><li class="row" data-kind="abstract" data-ts="1796165999000"><span class="k">Abstract</span><span class="v">Tue, Dec 1, 2026</span><span class="rel"></span></li><li class="row" data-kind="submission" data-ts="1796770799000"><span class="k">Submission</span><span class="v">Tue, Dec 8, 2026</span><span class="rel"></span></li><li class="row tba" data-kind="rebuttal"><span class="k">Rebuttal</span><span class="v">TBA</span><span class="rel"></span></li><li class="row" data-kind="decision" data-ts="1805198400000"><span class="k">Decision</span><span class="v">Tue, Mar 16, 2027</span><span class="rel"></span></li><li class="row" data-kind="conference" data-ts="1815220799000" data-start="1814961600000"><span class="k">Conference</span><span class="v">Jul 7–9, 2027</span><span class="rel"></span></li></ul>
+  <p class="note"><strong>Deadline time:</strong> 5:59 pm US Eastern (not Anywhere on Earth)</p>
+  <a class="official" href="https://www.usenix.org/conference/osdi27" target="_blank" rel="noopener">Official site &rarr;</a>
+</article>
+<article class="card a-systems" data-areas="Systems"
+         data-milestones='[{&quot;l&quot;: &quot;Abstract deadline&quot;, &quot;t&quot;: 1789127999000, &quot;d&quot;: true}, {&quot;l&quot;: &quot;Paper submission deadline&quot;, &quot;t&quot;: 1789732799000, &quot;d&quot;: true}, {&quot;l&quot;: &quot;Decision notification&quot;, &quot;t&quot;: 1796731200000, &quot;d&quot;: false}, {&quot;l&quot;: &quot;Conference starts&quot;, &quot;t&quot;: 1810036800000, &quot;d&quot;: false}]' data-conf-end="1810295999000">
+  <header>
+    <div class="titleline"><h2><a href="https://www.usenix.org/conference/nsdi27" target="_blank" rel="noopener">NSDI &#x27;27</a></h2><div class="chips"><span class="chip a-systems">Systems</span></div></div>
+    <p class="full">USENIX Symposium on Networked Systems Design and Implementation</p>
+    <p class="where">Providence, USA</p>
+  </header>
+  <div class="next"><span class="next-label">&nbsp;</span><span class="next-count">&nbsp;</span></div>
+  <ul class="rows"><li class="row" data-kind="abstract" data-ts="1789127999000"><span class="k">Abstract</span><span class="v">Thu, Sep 10, 2026</span><span class="rel"></span></li><li class="row" data-kind="submission" data-ts="1789732799000"><span class="k">Submission</span><span class="v">Thu, Sep 17, 2026</span><span class="rel"></span></li><li class="row tba" data-kind="rebuttal"><span class="k">Rebuttal</span><span class="v">TBA</span><span class="rel"></span></li><li class="row" data-kind="decision" data-ts="1796731200000"><span class="k">Decision</span><span class="v">Tue, Dec 8, 2026</span><span class="rel"></span></li><li class="row" data-kind="conference" data-ts="1810295999000" data-start="1810036800000"><span class="k">Conference</span><span class="v">May 11–13, 2027</span><span class="rel"></span></li></ul>
+  <p class="note">Dates shown are for the fall deadline. The spring deadline for NSDI &#x27;28 is usually in April.</p>
+  <a class="official" href="https://www.usenix.org/conference/nsdi27" target="_blank" rel="noopener">Official site &rarr;</a>
+</article>
+<article class="card a-ml" data-areas="ML"
+         data-milestones='[{&quot;l&quot;: &quot;Abstract deadline&quot;, &quot;t&quot;: 1789819199000, &quot;d&quot;: true}, {&quot;l&quot;: &quot;Paper submission deadline&quot;, &quot;t&quot;: 1790423999000, &quot;d&quot;: true}, {&quot;l&quot;: &quot;Rebuttal opens&quot;, &quot;t&quot;: 1793880000000, &quot;d&quot;: false}, {&quot;l&quot;: &quot;Rebuttal closes&quot;, &quot;t&quot;: 1795089599000, &quot;d&quot;: true}, {&quot;l&quot;: &quot;Decision notification&quot;, &quot;t&quot;: 1797422400000, &quot;d&quot;: false}, {&quot;l&quot;: &quot;Conference starts&quot;, &quot;t&quot;: 1808740800000, &quot;d&quot;: false}]' data-conf-end="1809172799000">
+  <header>
+    <div class="titleline"><h2><a href="https://iclr.cc/Conferences/2027" target="_blank" rel="noopener">ICLR 2027</a></h2><div class="chips"><span class="chip a-ml">ML</span></div></div>
+    <p class="full">International Conference on Learning Representations</p>
+    <p class="where">California, USA (venue not yet on the official dates page)</p>
+  </header>
+  <div class="next"><span class="next-label">&nbsp;</span><span class="next-count">&nbsp;</span></div>
+  <ul class="rows"><li class="row" data-kind="abstract" data-ts="1789819199000"><span class="k">Abstract</span><span class="v">Fri, Sep 18, 2026</span><span class="rel"></span></li><li class="row" data-kind="submission" data-ts="1790423999000"><span class="k">Submission</span><span class="v">Fri, Sep 25, 2026</span><span class="rel"></span></li><li class="row" data-kind="rebuttal" data-ts="1795089599000" data-start="1793880000000"><span class="k">Rebuttal</span><span class="v">Nov 5–18, 2026</span><span class="rel"></span></li><li class="row" data-kind="decision" data-ts="1797422400000"><span class="k">Decision</span><span class="v">Wed, Dec 16, 2026</span><span class="rel"></span></li><li class="row" data-kind="conference" data-ts="1809172799000" data-start="1808740800000"><span class="k">Conference</span><span class="v">Apr 26–30, 2027</span><span class="rel"></span></li></ul>
+  <p class="note">Main conference Apr 26-28, workshops Apr 29-30.</p>
+  <a class="official" href="https://iclr.cc/Conferences/2027" target="_blank" rel="noopener">Official site &rarr;</a>
+</article>
+<article class="card a-nlp" data-areas="NLP"
+         data-milestones='[{&quot;l&quot;: &quot;ARR submission deadline&quot;, &quot;t&quot;: 1791892799000, &quot;d&quot;: true}, {&quot;l&quot;: &quot;Commitment deadline&quot;, &quot;t&quot;: 1798113599000, &quot;d&quot;: true}, {&quot;l&quot;: &quot;Decision notification&quot;, &quot;t&quot;: 1802260800000, &quot;d&quot;: false}, {&quot;l&quot;: &quot;Conference starts&quot;, &quot;t&quot;: 1809864000000, &quot;d&quot;: false}]' data-conf-end="1810382399000">
+  <header>
+    <div class="titleline"><h2><a href="https://2027.coling-iccl.org/" target="_blank" rel="noopener">COLING 2027</a></h2><div class="chips"><span class="chip a-nlp">NLP</span></div></div>
+    <p class="full">International Conference on Computational Linguistics</p>
+    <p class="where">Macau, China</p>
+  </header>
+  <div class="next"><span class="next-label">&nbsp;</span><span class="next-count">&nbsp;</span></div>
+  <ul class="rows"><li class="row" data-kind="submission" data-ts="1791892799000"><span class="k">ARR submission</span><span class="v">Mon, Oct 12, 2026</span><span class="rel"></span></li><li class="row" data-kind="commitment" data-ts="1798113599000"><span class="k">Commitment</span><span class="v">Wed, Dec 23, 2026</span><span class="rel"></span></li><li class="row tba" data-kind="rebuttal"><span class="k">Rebuttal</span><span class="v">TBA</span><span class="rel"></span></li><li class="row" data-kind="decision" data-ts="1802260800000"><span class="k">Decision</span><span class="v">Wed, Feb 10, 2027</span><span class="rel"></span></li><li class="row" data-kind="conference" data-ts="1810382399000" data-start="1809864000000"><span class="k">Conference</span><span class="v">May 9–14, 2027</span><span class="rel"></span></li></ul>
+  
+  <a class="official" href="https://2027.coling-iccl.org/" target="_blank" rel="noopener">Official site &rarr;</a>
+</article>
+<article class="card a-nlp" data-areas="NLP"
+         data-milestones='[{&quot;l&quot;: &quot;ARR submission deadline&quot;, &quot;t&quot;: 1791892799000, &quot;d&quot;: true}, {&quot;l&quot;: &quot;Commitment deadline&quot;, &quot;t&quot;: 1798113599000, &quot;d&quot;: true}, {&quot;l&quot;: &quot;Decision notification&quot;, &quot;t&quot;: 1802260800000, &quot;d&quot;: false}, {&quot;l&quot;: &quot;Conference starts&quot;, &quot;t&quot;: 1811851200000, &quot;d&quot;: false}]' data-conf-end="1812283199000">
+  <header>
+    <div class="titleline"><h2><a href="https://2027.naacl.org/" target="_blank" rel="noopener">NAACL 2027</a></h2><div class="chips"><span class="chip a-nlp">NLP</span></div></div>
+    <p class="full">Nations of the Americas Chapter of the ACL</p>
+    <p class="where">San Francisco, USA</p>
+  </header>
+  <div class="next"><span class="next-label">&nbsp;</span><span class="next-count">&nbsp;</span></div>
+  <ul class="rows"><li class="row" data-kind="submission" data-ts="1791892799000"><span class="k">ARR submission</span><span class="v">Mon, Oct 12, 2026</span><span class="rel"></span></li><li class="row" data-kind="commitment" data-ts="1798113599000"><span class="k">Commitment</span><span class="v">Wed, Dec 23, 2026</span><span class="rel"></span></li><li class="row tba" data-kind="rebuttal"><span class="k">Rebuttal</span><span class="v">TBA</span><span class="rel"></span></li><li class="row" data-kind="decision" data-ts="1802260800000"><span class="k">Decision</span><span class="v">Wed, Feb 10, 2027</span><span class="rel"></span></li><li class="row" data-kind="conference" data-ts="1812283199000" data-start="1811851200000"><span class="k">Conference</span><span class="v">Jun 1–5, 2027</span><span class="rel"></span></li></ul>
+  <p class="note">Meta-reviews are released Dec 18, 2026. Shares the October ARR cycle with COLING 2027.</p>
+  <a class="official" href="https://2027.naacl.org/" target="_blank" rel="noopener">Official site &rarr;</a>
+</article>
+<article class="card a-nlp" data-areas="NLP"
+         data-milestones='[{&quot;l&quot;: &quot;ARR submission deadline&quot;, &quot;t&quot;: 1799150399000, &quot;d&quot;: true}, {&quot;l&quot;: &quot;Conference starts&quot;, &quot;t&quot;: 1818504000000, &quot;d&quot;: false}]' data-conf-end="1819022399000">
+  <header>
+    <div class="titleline"><h2><a href="https://2027.aclweb.org/" target="_blank" rel="noopener">ACL 2027</a></h2><div class="chips"><span class="chip a-nlp">NLP</span></div></div>
+    <p class="full">Annual Meeting of the Association for Computational Linguistics</p>
+    <p class="where">Kyoto, Japan</p>
+  </header>
+  <div class="next"><span class="next-label">&nbsp;</span><span class="next-count">&nbsp;</span></div>
+  <ul class="rows"><li class="row" data-kind="submission" data-ts="1799150399000"><span class="k">ARR submission</span><span class="v">Mon, Jan 4, 2027</span><span class="rel"></span></li><li class="row tba" data-kind="rebuttal"><span class="k">Rebuttal</span><span class="v">TBA</span><span class="rel"></span></li><li class="row tba" data-kind="decision"><span class="k">Decision</span><span class="v">TBA</span><span class="rel"></span></li><li class="row" data-kind="conference" data-ts="1819022399000" data-start="1818504000000"><span class="k">Conference</span><span class="v">Aug 17–22, 2027</span><span class="rel"></span></li></ul>
+  <p class="note">Reviewed through ACL Rolling Review. Commitment and notification dates are still TBA on the official site. Main conference is Aug 20-22.</p>
+  <a class="official" href="https://2027.aclweb.org/" target="_blank" rel="noopener">Official site &rarr;</a>
+</article>
+<article class="card a-ml" data-areas="ML"
+         data-milestones='[{&quot;l&quot;: &quot;Abstract deadline&quot;, &quot;t&quot;: 1800014399000, &quot;d&quot;: true}, {&quot;l&quot;: &quot;Paper submission deadline&quot;, &quot;t&quot;: 1800705599000, &quot;d&quot;: true}, {&quot;l&quot;: &quot;Decision notification&quot;, &quot;t&quot;: 1809345600000, &quot;d&quot;: false}, {&quot;l&quot;: &quot;Conference starts&quot;, &quot;t&quot;: 1817035200000, &quot;d&quot;: false}]' data-conf-end="1817639999000">
+  <header>
+    <div class="titleline"><h2><a href="https://icml.cc/Conferences/2027" target="_blank" rel="noopener">ICML 2027</a></h2><div class="chips"><span class="chip a-ml">ML</span></div></div>
+    <p class="full">International Conference on Machine Learning</p>
+    <p class="where">Rio de Janeiro, Brazil</p>
+  </header>
+  <div class="next"><span class="next-label">&nbsp;</span><span class="next-count">&nbsp;</span></div>
+  <ul class="rows"><li class="row" data-kind="abstract" data-ts="1800014399000"><span class="k">Abstract</span><span class="v">Thu, Jan 14, 2027</span><span class="rel"></span></li><li class="row" data-kind="submission" data-ts="1800705599000"><span class="k">Submission</span><span class="v">Fri, Jan 22, 2027</span><span class="rel"></span></li><li class="row tba" data-kind="rebuttal"><span class="k">Rebuttal</span><span class="v">TBA</span><span class="rel"></span></li><li class="row" data-kind="decision" data-ts="1809345600000"><span class="k">Decision</span><span class="v">Mon, May 3, 2027</span><span class="rel"></span></li><li class="row" data-kind="conference" data-ts="1817639999000" data-start="1817035200000"><span class="k">Conference</span><span class="v">Jul 31 – Aug 6, 2027</span><span class="rel"></span></li></ul>
+  <p class="note">First-stage rejection notices go out Feb 23, 2027. The rebuttal window is not posted yet. Main conference is Aug 2-4.</p>
+  <a class="official" href="https://icml.cc/Conferences/2027" target="_blank" rel="noopener">Official site &rarr;</a>
+</article>
+<article class="card a-ai-for-science" data-areas="AI for Science"
+         data-milestones='[{&quot;l&quot;: &quot;Proceedings paper deadline&quot;, &quot;t&quot;: 1800014399000, &quot;d&quot;: true}, {&quot;l&quot;: &quot;Conference starts&quot;, &quot;t&quot;: 1815912000000, &quot;d&quot;: false}]' data-conf-end="1816343999000">
+  <header>
+    <div class="titleline"><h2><a href="https://www.iscb.org/" target="_blank" rel="noopener">ISMB/ECCB 2027</a></h2><div class="chips"><span class="chip a-ai-for-science">AI for Science</span></div></div>
+    <p class="full">Intelligent Systems for Molecular Biology / European Conference on Computational Biology</p>
+    <p class="where">Copenhagen, Denmark</p>
+  </header>
+  <div class="next"><span class="next-label">&nbsp;</span><span class="next-count">&nbsp;</span></div>
+  <ul class="rows"><li class="row" data-kind="submission" data-ts="1800014399000"><span class="k">Proceedings paper</span><span class="v">Thu, Jan 14, 2027 <span class="tag">unconfirmed</span></span><span class="rel"></span></li><li class="row tba" data-kind="rebuttal"><span class="k">Rebuttal</span><span class="v">TBA</span><span class="rel"></span></li><li class="row tba" data-kind="decision"><span class="k">Decision</span><span class="v">TBA</span><span class="rel"></span></li><li class="row" data-kind="conference" data-ts="1816343999000" data-start="1815912000000"><span class="k">Conference</span><span class="v">Jul 18–22, 2027</span><span class="rel"></span></li></ul>
+  <p class="note">Proceedings papers are published in the journal Bioinformatics. Abstract-only talks and posters have a later deadline, usually in April.</p>
+  <a class="official" href="https://www.iscb.org/" target="_blank" rel="noopener">Official site &rarr;</a>
+</article>
+<article class="card a-systems" data-areas="Systems|ML"
+         data-milestones='[{&quot;l&quot;: &quot;Paper submission deadline&quot;, &quot;t&quot;: 1793447999000, &quot;d&quot;: true}, {&quot;l&quot;: &quot;Rebuttal opens&quot;, &quot;t&quot;: 1800273600000, &quot;d&quot;: false}, {&quot;l&quot;: &quot;Rebuttal closes&quot;, &quot;t&quot;: 1800619199000, &quot;d&quot;: true}, {&quot;l&quot;: &quot;Decision notification&quot;, &quot;t&quot;: 1803816000000, &quot;d&quot;: false}, {&quot;l&quot;: &quot;Conference starts&quot;, &quot;t&quot;: 1813579200000, &quot;d&quot;: false}]' data-conf-end="1814011199000">
+  <header>
+    <div class="titleline"><h2><a href="https://mlsys.org/Conferences/2027" target="_blank" rel="noopener">MLSys 2027</a></h2><div class="chips"><span class="chip a-systems">Systems</span><span class="chip a-ml">ML</span></div></div>
+    <p class="full">Conference on Machine Learning and Systems</p>
+    <p class="where">Bellevue, USA</p>
+  </header>
+  <div class="next"><span class="next-label">&nbsp;</span><span class="next-count">&nbsp;</span></div>
+  <ul class="rows"><li class="row" data-kind="submission" data-ts="1793447999000"><span class="k">Submission</span><span class="v">Fri, Oct 30, 2026</span><span class="rel"></span></li><li class="row" data-kind="rebuttal" data-ts="1800619199000" data-start="1800273600000"><span class="k">Rebuttal</span><span class="v">Jan 18–21, 2027</span><span class="rel"></span></li><li class="row" data-kind="decision" data-ts="1803816000000"><span class="k">Decision</span><span class="v">Sun, Feb 28, 2027</span><span class="rel"></span></li><li class="row" data-kind="conference" data-ts="1814011199000" data-start="1813579200000"><span class="k">Conference</span><span class="v">Jun 21–25, 2027</span><span class="rel"></span></li></ul>
+  <p class="note"><strong>Deadline time:</strong> Author responses are due at 12:00 noon US Pacific on Jan 21</p>
+  <a class="official" href="https://mlsys.org/Conferences/2027" target="_blank" rel="noopener">Official site &rarr;</a>
+</article>
+<article class="card a-ml" data-areas="ML"
+         data-milestones='[{&quot;l&quot;: &quot;Abstract deadline&quot;, &quot;t&quot;: 1790769599000, &quot;d&quot;: true}, {&quot;l&quot;: &quot;Paper submission deadline&quot;, &quot;t&quot;: 1791374399000, &quot;d&quot;: true}, {&quot;l&quot;: &quot;Decision notification&quot;, &quot;t&quot;: 1800446400000, &quot;d&quot;: false}, {&quot;l&quot;: &quot;Conference starts&quot;, &quot;t&quot;: 1809345600000, &quot;d&quot;: false}]' data-conf-end="1809691199000">
+  <header>
+    <div class="titleline"><h2><a href="https://virtual.aistats.org/Conferences/2027" target="_blank" rel="noopener">AISTATS 2027</a></h2><div class="chips"><span class="chip a-ml">ML</span></div></div>
+    <p class="full">International Conference on Artificial Intelligence and Statistics</p>
+    <p class="where">Montreal, Canada</p>
+  </header>
+  <div class="next"><span class="next-label">&nbsp;</span><span class="next-count">&nbsp;</span></div>
+  <ul class="rows"><li class="row" data-kind="abstract" data-ts="1790769599000"><span class="k">Abstract</span><span class="v">Tue, Sep 29, 2026</span><span class="rel"></span></li><li class="row" data-kind="submission" data-ts="1791374399000"><span class="k">Submission</span><span class="v">Tue, Oct 6, 2026</span><span class="rel"></span></li><li class="row tba" data-kind="rebuttal"><span class="k">Rebuttal</span><span class="v">TBA</span><span class="rel"></span></li><li class="row" data-kind="decision" data-ts="1800446400000"><span class="k">Decision</span><span class="v">Wed, Jan 20, 2027 <span class="tag">unconfirmed</span></span><span class="rel"></span></li><li class="row" data-kind="conference" data-ts="1809691199000" data-start="1809345600000"><span class="k">Conference</span><span class="v">May 3–6, 2027</span><span class="rel"></span></li></ul>
+  <p class="note">Decision date comes from deadline trackers; the official committee page still lists it as to be confirmed.</p>
+  <a class="official" href="https://virtual.aistats.org/Conferences/2027" target="_blank" rel="noopener">Official site &rarr;</a>
+</article>
+<article class="card a-vision" data-areas="Vision"
+         data-milestones='[{&quot;l&quot;: &quot;Abstract deadline&quot;, &quot;t&quot;: 1794398399000, &quot;d&quot;: true}, {&quot;l&quot;: &quot;Paper submission deadline&quot;, &quot;t&quot;: 1794916799000, &quot;d&quot;: true}, {&quot;l&quot;: &quot;Rebuttal opens&quot;, &quot;t&quot;: 1800878400000, &quot;d&quot;: false}, {&quot;l&quot;: &quot;Decision notification&quot;, &quot;t&quot;: 1803556800000, &quot;d&quot;: false}, {&quot;l&quot;: &quot;Conference starts&quot;, &quot;t&quot;: 1813492800000, &quot;d&quot;: false}]' data-conf-end="1814011199000">
+  <header>
+    <div class="titleline"><h2><a href="https://cvpr.thecvf.com/Conferences/2027" target="_blank" rel="noopener">CVPR 2027</a></h2><div class="chips"><span class="chip a-vision">Vision</span></div></div>
+    <p class="full">IEEE/CVF Conference on Computer Vision and Pattern Recognition</p>
+    <p class="where">Seattle, USA</p>
+  </header>
+  <div class="next"><span class="next-label">&nbsp;</span><span class="next-count">&nbsp;</span></div>
+  <ul class="rows"><li class="row" data-kind="abstract" data-ts="1794398399000"><span class="k">Abstract</span><span class="v">Tue, Nov 10, 2026</span><span class="rel"></span></li><li class="row" data-kind="submission" data-ts="1794916799000"><span class="k">Submission</span><span class="v">Mon, Nov 16, 2026</span><span class="rel"></span></li><li class="row" data-kind="rebuttal_open" data-ts="1800878400000"><span class="k">Rebuttal</span><span class="v">Opens Mon, Jan 25, 2027</span><span class="rel"></span></li><li class="row" data-kind="decision" data-ts="1803556800000"><span class="k">Decision</span><span class="v">Thu, Feb 25, 2027</span><span class="rel"></span></li><li class="row" data-kind="conference" data-ts="1814011199000" data-start="1813492800000"><span class="k">Conference</span><span class="v">Jun 20–25, 2027</span><span class="rel"></span></li></ul>
+  <p class="note">Reviews are released Jan 25, 2027; the rebuttal closing date is not posted yet.</p>
+  <a class="official" href="https://cvpr.thecvf.com/Conferences/2027" target="_blank" rel="noopener">Official site &rarr;</a>
+</article>
+<article class="card a-systems" data-areas="Systems"
+         data-milestones='[{&quot;l&quot;: &quot;Paper submission deadline&quot;, &quot;t&quot;: 1789732799000, &quot;d&quot;: true}, {&quot;l&quot;: &quot;Decision notification&quot;, &quot;t&quot;: 1801224000000, &quot;d&quot;: false}, {&quot;l&quot;: &quot;Conference starts&quot;, &quot;t&quot;: 1808136000000, &quot;d&quot;: false}]' data-conf-end="1808654399000">
+  <header>
+    <div class="titleline"><h2><a href="https://2027.eurosys.org/" target="_blank" rel="noopener">EuroSys 2027</a></h2><div class="chips"><span class="chip a-systems">Systems</span></div></div>
+    <p class="full">European Conference on Computer Systems</p>
+    <p class="where">Rabat, Morocco</p>
+  </header>
+  <div class="next"><span class="next-label">&nbsp;</span><span class="next-count">&nbsp;</span></div>
+  <ul class="rows"><li class="row" data-kind="submission" data-ts="1789732799000"><span class="k">Submission</span><span class="v">Thu, Sep 17, 2026 <span class="tag">unconfirmed</span></span><span class="rel"></span></li><li class="row tba" data-kind="rebuttal"><span class="k">Rebuttal</span><span class="v">TBA</span><span class="rel"></span></li><li class="row" data-kind="decision" data-ts="1801224000000"><span class="k">Decision</span><span class="v">Fri, Jan 29, 2027 <span class="tag">unconfirmed</span></span><span class="rel"></span></li><li class="row" data-kind="conference" data-ts="1808654399000" data-start="1808136000000"><span class="k">Conference</span><span class="v">Apr 19–24, 2027 <span class="tag">unconfirmed</span></span><span class="rel"></span></li></ul>
+  <p class="note">Dates shown are for the fall cycle and come from deadline trackers.</p>
+  <a class="official" href="https://2027.eurosys.org/" target="_blank" rel="noopener">Official site &rarr;</a>
+</article>
+<article class="card a-nlp" data-areas="NLP"
+         data-milestones='[{&quot;l&quot;: &quot;ARR submission deadline&quot;, &quot;t&quot;: 1785844799000, &quot;d&quot;: true}, {&quot;l&quot;: &quot;Commitment deadline&quot;, &quot;t&quot;: 1791806399000, &quot;d&quot;: true}, {&quot;l&quot;: &quot;Conference starts&quot;, &quot;t&quot;: 1804593600000, &quot;d&quot;: false}]' data-conf-end="1805111999000">
+  <header>
+    <div class="titleline"><h2><a href="https://2027.eacl.org/" target="_blank" rel="noopener">EACL 2027</a></h2><div class="chips"><span class="chip a-nlp">NLP</span></div></div>
+    <p class="full">European Chapter of the ACL</p>
+    <p class="where">Athens, Greece</p>
+  </header>
+  <div class="next"><span class="next-label">&nbsp;</span><span class="next-count">&nbsp;</span></div>
+  <ul class="rows"><li class="row" data-kind="submission" data-ts="1785844799000"><span class="k">ARR submission</span><span class="v">Mon, Aug 3, 2026</span><span class="rel"></span></li><li class="row" data-kind="commitment" data-ts="1791806399000"><span class="k">Commitment</span><span class="v">Sun, Oct 11, 2026</span><span class="rel"></span></li><li class="row tba" data-kind="rebuttal"><span class="k">Rebuttal</span><span class="v">TBA</span><span class="rel"></span></li><li class="row tba" data-kind="decision"><span class="k">Decision</span><span class="v">TBA</span><span class="rel"></span></li><li class="row" data-kind="conference" data-ts="1805111999000" data-start="1804593600000"><span class="k">Conference</span><span class="v">Mar 9–14, 2027</span><span class="rel"></span></li></ul>
+  
+  <a class="official" href="https://2027.eacl.org/" target="_blank" rel="noopener">Official site &rarr;</a>
+</article>
+<article class="card a-ml" data-areas="ML|AI for Science"
+         data-milestones='[{&quot;l&quot;: &quot;Conference starts&quot;, &quot;t&quot;: 1817121600000, &quot;d&quot;: false}]' data-conf-end="1817553599000">
+  <header>
+    <div class="titleline"><h2><a href="https://kdd2027.kdd.org/" target="_blank" rel="noopener">KDD 2027</a></h2><div class="chips"><span class="chip a-ml">ML</span><span class="chip a-ai-for-science">AI for Science</span></div></div>
+    <p class="full">ACM SIGKDD Conference on Knowledge Discovery and Data Mining</p>
+    <p class="where">San Jose, USA</p>
+  </header>
+  <div class="next"><span class="next-label">&nbsp;</span><span class="next-count">&nbsp;</span></div>
+  <ul class="rows"><li class="row tba" data-kind="submission"><span class="k">Submission</span><span class="v">TBA</span><span class="rel"></span></li><li class="row tba" data-kind="rebuttal"><span class="k">Rebuttal</span><span class="v">TBA</span><span class="rel"></span></li><li class="row tba" data-kind="decision"><span class="k">Decision</span><span class="v">TBA</span><span class="rel"></span></li><li class="row" data-kind="conference" data-ts="1817553599000" data-start="1817121600000"><span class="k">Conference</span><span class="v">Aug 1–5, 2027</span><span class="rel"></span></li></ul>
+  <p class="note">Has a dedicated AI for Sciences track. Cycle 1 closed in July 2026. The Cycle 2 deadline is expected in February 2027 but the exact date is not posted yet - add it here as &#x27;submission&#x27; when it is.</p>
+  <a class="official" href="https://kdd2027.kdd.org/" target="_blank" rel="noopener">Official site &rarr;</a>
+</article>
+<article class="card a-ai" data-areas="AI"
+         data-milestones='[{&quot;l&quot;: &quot;Conference starts&quot;, &quot;t&quot;: 1817640000000, &quot;d&quot;: false}]' data-conf-end="1818244799000">
+  <header>
+    <div class="titleline"><h2><a href="https://www.ijcai.org/" target="_blank" rel="noopener">IJCAI 2027</a></h2><div class="chips"><span class="chip a-ai">AI</span></div></div>
+    <p class="full">International Joint Conference on Artificial Intelligence</p>
+    <p class="where">Kyoto, Japan</p>
+  </header>
+  <div class="next"><span class="next-label">&nbsp;</span><span class="next-count">&nbsp;</span></div>
+  <ul class="rows"><li class="row tba" data-kind="submission"><span class="k">Submission</span><span class="v">TBA</span><span class="rel"></span></li><li class="row tba" data-kind="rebuttal"><span class="k">Rebuttal</span><span class="v">TBA</span><span class="rel"></span></li><li class="row tba" data-kind="decision"><span class="k">Decision</span><span class="v">TBA</span><span class="rel"></span></li><li class="row" data-kind="conference" data-ts="1818244799000" data-start="1817640000000"><span class="k">Conference</span><span class="v">Aug 7–13, 2027</span><span class="rel"></span></li></ul>
+  <p class="note">Call for papers not found on the official site yet. Last cycle&#x27;s abstract deadline was mid-January, so check ijcai.org soon. A satellite event runs in Hengqin, China on Aug 15-17.</p>
+  <a class="official" href="https://www.ijcai.org/" target="_blank" rel="noopener">Official site &rarr;</a>
+</article>
+<article class="card a-vision" data-areas="Vision"
+         data-milestones='[{&quot;l&quot;: &quot;Conference starts&quot;, &quot;t&quot;: 1822478400000, &quot;d&quot;: false}]' data-conf-end="1823083199000">
+  <header>
+    <div class="titleline"><h2><a href="https://iccv.thecvf.com/" target="_blank" rel="noopener">ICCV 2027</a></h2><div class="chips"><span class="chip a-vision">Vision</span></div></div>
+    <p class="full">IEEE/CVF International Conference on Computer Vision</p>
+    <p class="where">Hong Kong</p>
+  </header>
+  <div class="next"><span class="next-label">&nbsp;</span><span class="next-count">&nbsp;</span></div>
+  <ul class="rows"><li class="row tba" data-kind="submission"><span class="k">Submission</span><span class="v">TBA</span><span class="rel"></span></li><li class="row tba" data-kind="rebuttal"><span class="k">Rebuttal</span><span class="v">TBA</span><span class="rel"></span></li><li class="row tba" data-kind="decision"><span class="k">Decision</span><span class="v">TBA</span><span class="rel"></span></li><li class="row" data-kind="conference" data-ts="1823083199000" data-start="1822478400000"><span class="k">Conference</span><span class="v">Oct 2–8, 2027</span><span class="rel"></span></li></ul>
+  <p class="note">Call for papers not out yet. The ICCV 2025 paper deadline was in early March, so expect something similar.</p>
+  <a class="official" href="https://iccv.thecvf.com/" target="_blank" rel="noopener">Official site &rarr;</a>
+</article>
+<article class="card a-nlp" data-areas="NLP"
+         data-milestones='[]' data-conf-end="">
+  <header>
+    <div class="titleline"><h2><a href="https://www.aclweb.org/portal/" target="_blank" rel="noopener">EMNLP 2027</a></h2><div class="chips"><span class="chip a-nlp">NLP</span></div></div>
+    <p class="full">Conference on Empirical Methods in Natural Language Processing</p>
+    <p class="where">Mexico or Central America (tentative)</p>
+  </header>
+  <div class="next"><span class="next-label">&nbsp;</span><span class="next-count">&nbsp;</span></div>
+  <ul class="rows"><li class="row tba" data-kind="submission"><span class="k">Submission</span><span class="v">TBA</span><span class="rel"></span></li><li class="row tba" data-kind="rebuttal"><span class="k">Rebuttal</span><span class="v">TBA</span><span class="rel"></span></li><li class="row tba" data-kind="decision"><span class="k">Decision</span><span class="v">TBA</span><span class="rel"></span></li><li class="row tba" data-kind="conference"><span class="k">Conference</span><span class="v">TBA</span><span class="rel"></span></li></ul>
+  <p class="note">Tentatively early November 2027; no exact dates yet. The EMNLP 2026 ARR deadline was in late May 2026.</p>
+  <a class="official" href="https://www.aclweb.org/portal/" target="_blank" rel="noopener">Official site &rarr;</a>
+</article>
+<article class="card a-ml" data-areas="ML"
+         data-milestones='[]' data-conf-end="">
+  <header>
+    <div class="titleline"><h2><a href="https://neurips.cc/" target="_blank" rel="noopener">NeurIPS 2027</a></h2><div class="chips"><span class="chip a-ml">ML</span></div></div>
+    <p class="full">Conference on Neural Information Processing Systems</p>
+    <p class="where">Europe (city not announced)</p>
+  </header>
+  <div class="next"><span class="next-label">&nbsp;</span><span class="next-count">&nbsp;</span></div>
+  <ul class="rows"><li class="row tba" data-kind="submission"><span class="k">Submission</span><span class="v">TBA</span><span class="rel"></span></li><li class="row tba" data-kind="rebuttal"><span class="k">Rebuttal</span><span class="v">TBA</span><span class="rel"></span></li><li class="row tba" data-kind="decision"><span class="k">Decision</span><span class="v">TBA</span><span class="rel"></span></li><li class="row tba" data-kind="conference"><span class="k">Conference</span><span class="v">TBA</span><span class="rel"></span></li></ul>
+  <p class="note">No 2027 dates yet. In recent years abstracts were due in mid-May, full papers about a week later, and the conference ran in early December.</p>
+  <a class="official" href="https://neurips.cc/" target="_blank" rel="noopener">Official site &rarr;</a>
+</article>
+<article class="card a-systems" data-areas="Systems"
+         data-milestones='[]' data-conf-end="">
+  <header>
+    <div class="titleline"><h2><a href="https://www.sigops.org/" target="_blank" rel="noopener">SOSP 2027</a></h2><div class="chips"><span class="chip a-systems">Systems</span></div></div>
+    <p class="full">ACM Symposium on Operating Systems Principles</p>
+    <p class="where">Not announced</p>
+  </header>
+  <div class="next"><span class="next-label">&nbsp;</span><span class="next-count">&nbsp;</span></div>
+  <ul class="rows"><li class="row tba" data-kind="submission"><span class="k">Submission</span><span class="v">TBA</span><span class="rel"></span></li><li class="row tba" data-kind="rebuttal"><span class="k">Rebuttal</span><span class="v">TBA</span><span class="rel"></span></li><li class="row tba" data-kind="decision"><span class="k">Decision</span><span class="v">TBA</span><span class="rel"></span></li><li class="row tba" data-kind="conference"><span class="k">Conference</span><span class="v">TBA</span><span class="rel"></span></li></ul>
+  <p class="note">No 2027 dates yet. The SOSP 2026 paper deadline was in late March 2026.</p>
+  <a class="official" href="https://www.sigops.org/" target="_blank" rel="noopener">Official site &rarr;</a>
+</article>
+<article class="card a-ml" data-areas="ML"
+         data-milestones='[]' data-conf-end="">
+  <header>
+    <div class="titleline"><h2><a href="https://www.auai.org/" target="_blank" rel="noopener">UAI 2027</a></h2><div class="chips"><span class="chip a-ml">ML</span></div></div>
+    <p class="full">Conference on Uncertainty in Artificial Intelligence</p>
+    <p class="where">Not announced</p>
+  </header>
+  <div class="next"><span class="next-label">&nbsp;</span><span class="next-count">&nbsp;</span></div>
+  <ul class="rows"><li class="row tba" data-kind="submission"><span class="k">Submission</span><span class="v">TBA</span><span class="rel"></span></li><li class="row tba" data-kind="rebuttal"><span class="k">Rebuttal</span><span class="v">TBA</span><span class="rel"></span></li><li class="row tba" data-kind="decision"><span class="k">Decision</span><span class="v">TBA</span><span class="rel"></span></li><li class="row tba" data-kind="conference"><span class="k">Conference</span><span class="v">TBA</span><span class="rel"></span></li></ul>
+  <p class="note">No 2027 dates yet. The UAI 2026 paper deadline was in late February 2026.</p>
+  <a class="official" href="https://www.auai.org/" target="_blank" rel="noopener">Official site &rarr;</a>
+</article></main>
+
+  <footer>
+    <p>Deadlines are end of day <strong>Anywhere on Earth</strong> (UTC&minus;12) unless a card says otherwise. Countdowns use your device clock.</p>
+    <p>Dates are synced every day from the community tracker <a href="https://ccfddl.com/">ccfddl</a>. Dates tagged <em>auto-updated</em> or <em>unconfirmed</em> came from a tracker and have not been checked by a person. Dates can move, so always confirm on the official conference site before you rely on one.</p>
+    <p>Dates last verified by hand against official sites: Nov 19, 2026. Last tracker sync: not yet run. Page refreshed Thu, Nov 19, 2026.</p>
+  </footer>
+</div>
+
+<script>
+(function () {
+  var DAY = 86400000;
+  function pad(n) { return (n < 10 ? "0" : "") + n; }
+  function clock(ms) {
+    var s = Math.floor(ms / 1000), d = Math.floor(s / 86400);
+    var h = Math.floor((s % 86400) / 3600), m = Math.floor((s % 3600) / 60);
+    return d + "d " + pad(h) + "h " + pad(m) + "m " + pad(s % 60) + "s";
+  }
+  function rough(ms) {
+    var d = Math.floor(ms / DAY);
+    if (d >= 2) return "in " + d + " days";
+    if (d === 1) return "tomorrow";
+    var h = Math.floor(ms / 3600000);
+    return h >= 1 ? "in " + h + " hour" + (h === 1 ? "" : "s") : "in under an hour";
+  }
+
+  var cards = [].slice.call(document.querySelectorAll(".card"));
+  cards.forEach(function (c) {
+    c._ms = JSON.parse(c.getAttribute("data-milestones") || "[]");
+    c._end = Number(c.getAttribute("data-conf-end")) || 0;
+    c._label = c.querySelector(".next-label");
+    c._count = c.querySelector(".next-count");
+    c._box = c.querySelector(".next");
+    c._rows = [].slice.call(c.querySelectorAll(".row[data-ts]"));
+  });
+  var upItems = [].slice.call(document.querySelectorAll("#nextup li"));
+  var area = "";
+
+  function tick() {
+    var now = Date.now();
+    cards.forEach(function (c) {
+      var next = null;
+      for (var i = 0; i < c._ms.length; i++) { if (c._ms[i].t > now) { next = c._ms[i]; break; } }
+      c._box.className = "next";
+      c.classList.remove("done");
+      if (next) {
+        var left = next.t - now;
+        c._label.textContent = "Next: " + next.l;
+        c._count.textContent = next.d ? clock(left) : rough(left);
+        if (left < 7 * DAY) c._box.classList.add("soon");
+      } else if (c._end && now < c._end) {
+        c._label.textContent = "Status"; c._count.textContent = "Happening now";
+      } else if (c._end) {
+        c._box.classList.add("quiet"); c.classList.add("done");
+        c._label.textContent = "Status"; c._count.textContent = "Finished for this cycle";
+      } else {
+        c._box.classList.add("quiet");
+        c._label.textContent = "Status"; c._count.textContent = "Dates not announced yet";
+      }
+      c._rows.forEach(function (r) {
+        var end = Number(r.getAttribute("data-ts")), start = Number(r.getAttribute("data-start")) || 0;
+        var kind = r.getAttribute("data-kind"), rel = r.querySelector(".rel"), text = "";
+        r.classList.remove("past", "live");
+        if (now >= end) { r.classList.add("past"); text = kind === "conference" ? "finished" : "passed"; }
+        else if (start && now >= start) { r.classList.add("live"); text = kind === "conference" ? "happening now" : "open now, closes " + rough(end - now); }
+        else if (start) { text = (kind === "conference" ? "" : "opens ") + rough(start - now); }
+        else { text = rough(end - now); }
+        rel.textContent = text;
+      });
+    });
+
+    var shown = 0;
+    upItems.forEach(function (li) {
+      var t = Number(li.getAttribute("data-t"));
+      var match = !area || (li.getAttribute("data-areas") || "").split("|").indexOf(area) >= 0;
+      var show = t > now && match && shown < 6;
+      li.hidden = !show;
+      if (show) {
+        shown++;
+        var el = li.querySelector(".nu-count"), left = t - now;
+        el.textContent = li.getAttribute("data-d") === "1" ? clock(left) : rough(left);
+        el.className = "nu-count" + (left < 7 * DAY ? " soon" : "");
+      }
+    });
+    var list = document.getElementById("nextup"), empty = list.querySelector(".empty");
+    if (!shown && !empty) { empty = document.createElement("li"); empty.className = "empty"; empty.textContent = "Nothing with a confirmed date right now."; list.appendChild(empty); }
+    if (empty) empty.hidden = shown > 0;
+  }
+
+  [].slice.call(document.querySelectorAll(".filter")).forEach(function (b) {
+    b.addEventListener("click", function () {
+      area = b.getAttribute("data-area");
+      [].slice.call(document.querySelectorAll(".filter")).forEach(function (x) { x.classList.toggle("on", x === b); });
+      cards.forEach(function (c) {
+        c.hidden = !!area && (c.getAttribute("data-areas") || "").split("|").indexOf(area) < 0;
+      });
+      tick();
+    });
+  });
+
+  tick();
+  setInterval(tick, 1000);
+})();
+</script>
+</body>
+</html>
