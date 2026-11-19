@@ -197,9 +197,11 @@ def pick_round(rounds, our_submission, today):
     upcoming = [(d, r) for d, r in dated if d >= today]
     if our_submission:
         gap, best = min(((abs((d - our_submission).days), r) for d, r in dated), key=lambda x: x[0])
-        # Stay on the round we already track - unless it has passed and the
-        # tracker now lists a later round, in which case move on to that one.
-        if gap <= 21 and (best["submission"] >= today or not upcoming):
+        # Stay on the round we already track, even after it has passed. Later
+        # entries are not always a new round (NLP conferences list their
+        # commitment deadline that way), so we never switch rounds by ourselves.
+        # To follow a later round, type its submission date into conferences.toml.
+        if gap <= 21:
             return best
     if upcoming:
         return min(upcoming, key=lambda x: x[0])[1]
