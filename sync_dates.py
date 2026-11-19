@@ -6,7 +6,8 @@ Once a day this script downloads the community-maintained conference tracker
 a conference announces or moves a date) and compares it with our own data.
 
 WHAT IT DOES WITH WHAT IT FINDS
-  - A date we list as TBA that the tracker now has   -> filled in automatically
+  - A date we list as TBA (or marked "unverified")
+    that the tracker now has                         -> filled in automatically
   - A date the tracker has CHANGED since yesterday   -> updated automatically
   - A date where the tracker simply disagrees with what a person typed into
     conferences.toml the first time we look          -> left alone, and reported
@@ -193,11 +194,13 @@ def pick_round(rounds, our_submission, today):
     dated = [(r["submission"], r) for r in rounds if r.get("submission")]
     if not dated:
         return rounds[0] if rounds else {}
+    upcoming = [(d, r) for d, r in dated if d >= today]
     if our_submission:
         gap, best = min(((abs((d - our_submission).days), r) for d, r in dated), key=lambda x: x[0])
-        if gap <= 21:
+        # Stay on the round we already track - unless it has passed and the
+        # tracker now lists a later round, in which case move on to that one.
+        if gap <= 21 and (best["submission"] >= today or not upcoming):
             return best
-    upcoming = [(d, r) for d, r in dated if d >= today]
     if upcoming:
         return min(upcoming, key=lambda x: x[0])[1]
     return max(dated, key=lambda x: x[0])[1]
@@ -257,6 +260,7 @@ def sync(conferences_raw, conferences_live, index, state, today):
     notices = state.setdefault("notices", [])
     conflicts = state["conflicts"] = {}   # rebuilt from scratch on every run
     live_by_id = {c["id"]: c for c in conferences_live}
+    first_ever_run = "last_sync" not in state   # the first run only sets a baseline
     log = []
 
     for conf in conferences_raw:
@@ -271,6 +275,15 @@ def sync(conferences_raw, conferences_live, index, state, today):
             log.append(f"  {conf['name']}: the tracker has no {year} entry yet")
             continue
 
+        # Trackers often list only the main-conference days, while we may include
+        # tutorials and workshops. If the two date ranges overlap, that is not a
+        # disagreement, so leave the conference dates alone.
+        our_start, our_end = live.get("conference_start"), live.get("conference_end") or live.get("conference_start")
+        their_start, their_end = found.get("conference_start"), found.get("conference_end")
+        if our_start and their_start and their_start <= our_end and (their_end or their_start) >= our_start:
+            found.pop("conference_start", None)
+            found.pop("conference_end", None)
+
         conf_seen = seen.setdefault(cid, {})
         for field, theirs in found.items():
             typed = conf.get(field)            # in conferences.toml (may be None)
@@ -282,7 +295,10 @@ def sync(conferences_raw, conferences_live, index, state, today):
 
             first_look = before is None
             tracker_moved = before is not None and before != theirs.isoformat()
-            if not (tracker_moved or (first_look and typed is None)):
+            # A typed date that is itself marked "unverified" came from a
+            # tracker in the first place, so this tracker may replace it.
+            replaceable = typed is None or field in conf["unverified"]
+            if not (tracker_moved or replaceable):
                 # The tracker disagrees with a date a person typed, and has not
                 # moved since we first saw it. Keep the typed date, but flag
                 # the disagreement on the site so someone checks.
@@ -302,7 +318,7 @@ def sync(conferences_raw, conferences_live, index, state, today):
             log.append(f"  {conf['name']} {field}: {what} -> {theirs}  (applied)")
 
             still_matters = theirs >= today or (showing is not None and showing >= today)
-            if still_matters and field != "conference_end":
+            if still_matters and field != "conference_end" and not first_ever_run:
                 # If an earlier notice for this date was never emailed, replace
                 # it and keep its "old" value, so people see one clean change.
                 old_value = showing.isoformat() if showing else None

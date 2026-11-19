@@ -23,78 +23,7 @@
   }
  },
  "last_sync": "2026-11-19",
- "notices": [
-  {
-   "field": "rebuttal_end",
-   "id": "aistats-2027",
-   "new": "2026-11-22",
-   "old": null,
-   "on": "2026-11-19"
-  },
-  {
-   "field": "abstract",
-   "id": "ijcai-2027",
-   "new": "2027-01-04",
-   "old": null,
-   "on": "2026-11-19"
-  },
-  {
-   "field": "submission",
-   "id": "ijcai-2027",
-   "new": "2027-01-11",
-   "old": null,
-   "on": "2026-11-19"
-  },
-  {
-   "field": "rebuttal_end",
-   "id": "ijcai-2027",
-   "new": "2027-04-02",
-   "old": null,
-   "on": "2026-11-19"
-  },
-  {
-   "field": "decision",
-   "id": "ijcai-2027",
-   "new": "2027-04-21",
-   "old": null,
-   "on": "2026-11-19"
-  },
-  {
-   "field": "rebuttal_end",
-   "id": "naacl-2027",
-   "new": "2026-11-30",
-   "old": null,
-   "on": "2026-11-19"
-  },
-  {
-   "field": "rebuttal_end",
-   "id": "coling-2027",
-   "new": "2026-11-30",
-   "old": null,
-   "on": "2026-11-19"
-  },
-  {
-   "field": "rebuttal_end",
-   "id": "cvpr-2027",
-   "new": "2027-02-01",
-   "old": null,
-   "on": "2026-11-19"
-  },
-  {
-   "field": "rebuttal_end",
-   "id": "eurosys-2027",
-   "new": "2027-01-08",
-   "old": null,
-   "on": "2026-11-19"
-  },
-  {
-   "field": "decision",
-   "id": "ismb-2027",
-   "new": "2027-03-30",
-   "old": null,
-   "on": "2026-11-19"
-  }
- ],
+ "notices": [],
  "overrides": {
   "aistats-2027": {
    "rebuttal_end": {
