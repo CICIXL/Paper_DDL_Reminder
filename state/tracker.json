@@ -122,7 +122,8 @@
    "conference_end": "2027-05-14",
    "conference_start": "2027-05-09",
    "decision": "2027-02-10",
-   "rebuttal_end": "2026-11-30"
+   "rebuttal_end": "2026-11-30",
+   "submission": "2026-10-12"
   },
   "cvpr-2027": {
    "abstract": "2026-11-10",
@@ -197,7 +198,8 @@
    "conference_end": "2027-06-05",
    "conference_start": "2027-06-01",
    "decision": "2027-02-10",
-   "rebuttal_end": "2026-11-30"
+   "rebuttal_end": "2026-11-30",
+   "submission": "2026-10-12"
   },
   "nsdi-2027": {
    "abstract": "2026-09-10",
