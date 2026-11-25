@@ -1,0 +1,33 @@
+# Tells Render how to run PaperDDL. In the Render dashboard choose
+# New > Blueprint, pick this repository, and Render reads this file.
+services:
+  - type: web
+    name: paperddl
+    runtime: python
+    plan: starter                 # a paid plan: needed for the disk, and it never sleeps
+    buildCommand: pip install -r requirements.txt
+    # One worker on purpose: the database is a single file on the disk, and the
+    # built-in daily clock must run exactly once.
+    startCommand: gunicorn app.main:app --bind 0.0.0.0:$PORT --workers 1 --threads 8 --timeout 300
+    healthCheckPath: /healthz
+    disk:                         # survives restarts and deploys; holds the database
+      name: paperddl-data
+      mountPath: /var/data
+      sizeGB: 1
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.13.1
+      - key: DATA_DIR
+        value: /var/data
+      - key: ENABLE_SCHEDULER
+        value: "1"
+      - key: MAIL_FROM
+        value: PaperDDL <reminders@paperddl.com>
+      - key: TASK_TOKEN
+        generateValue: true       # Render invents a long random password
+      - key: RESEND_API_KEY
+        sync: false               # you paste this in the dashboard
+      - key: CONTACT_EMAIL
+        sync: false               # an address you read; shown on About and Privacy
+      - key: BASE_URL
+        sync: false               # https://paperddl.com once the domain is connected

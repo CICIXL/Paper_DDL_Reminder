@@ -41,17 +41,11 @@
 # =============================================================================
 
 [settings]
-site_title = "Conference Deadlines 2027"
-site_tagline = "Submission, rebuttal, decision and conference dates for the big ML, NLP, systems and AI-for-science venues."
-# After you turn on GitHub Pages, paste your site address here so emails can link to it.
-site_url = ""
-# Optional: a link people can use to ask for reminders (a Google Form, or "mailto:you@example.com").
-signup_url = ""
+# The one-line description under the headline on the home page.
+site_tagline = "Deadlines for the big ML, NLP, vision, systems and AI-for-science conferences, with email reminders for the ones you follow."
 # The last day someone checked these dates against the official sites.
-# Update it whenever you re-check; it is shown at the bottom of the page.
+# Update it whenever you re-check; it is shown at the bottom of the home page.
 dates_verified = "Nov 19, 2026"
-# Name shown as the sender of reminder emails.
-email_from_name = "Conference Reminders"
 
 # How many days before each kind of date a reminder goes out. 0 = on the day.
 # Edit these lists to get more or fewer nudges.

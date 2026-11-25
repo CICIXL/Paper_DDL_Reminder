@@ -1,41 +1,28 @@
 """
 sync_dates.py - keeps the dates up to date automatically.
 
-Once a day this script downloads the community-maintained conference tracker
-"ccfddl" (https://github.com/ccfddl/ccf-deadlines - volunteers update it when
-a conference announces or moves a date) and compares it with our own data.
+Once a day this downloads the community-maintained conference tracker
+"ccfddl" (https://github.com/ccfddl/ccf-deadlines) and compares it with
+conferences.toml.
 
 WHAT IT DOES WITH WHAT IT FINDS
   - A date we list as TBA (or marked "unverified")
     that the tracker now has                         -> filled in automatically
-  - A date the tracker has CHANGED since yesterday   -> updated automatically
-  - A date where the tracker simply disagrees with what a person typed into
-    conferences.toml the first time we look          -> left alone, and reported
-    in the log (the hand-checked value is trusted until the tracker moves)
+  - A date the tracker has CHANGED since the last run -> updated automatically
+  - A date where the tracker disagrees with what a person typed, and has
+    not moved                                        -> left alone, flagged on the site
   - The tracker says "TBD" or has nothing            -> nothing changes
 
-Automatic changes are NOT written into conferences.toml. They are kept in
-state/tracker.json and layered on top when the site and emails are built.
-They show an "auto-updated" tag so everyone knows nobody has checked them
-against the official site yet.
-
-To confirm an auto-updated date, type it into conferences.toml yourself.
-Whatever a person types there always wins over the tracker.
+Automatic changes are NOT written into conferences.toml. They are kept in a
+small memory file (tracker.json in the data folder) and layered on top when
+pages and emails are built, with an "auto-updated" tag. Anything a person
+types into conferences.toml always wins.
 
 Every change to a future date is also queued as a "date changed" notice,
-which send_reminders.py emails to subscribers on its next run.
-
-Commands:
-    python3 sync_dates.py              normal run
-    python3 sync_dates.py --dry-run    show what would change, save nothing
-
-This is the one script that needs an extra package:  pip install pyyaml
-(GitHub installs it automatically - see .github/workflows/daily.yml.)
+which the daily task emails to the people who follow that conference.
 """
 
-import argparse
 import io
-import json
 import re
 import sys
 import tarfile
@@ -43,8 +30,8 @@ import urllib.request
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
-import confdata
-from confdata import AOE, DATE_FIELDS, TRACKER_STATE, event_label, nice_date
+from . import confdata
+from .confdata import AOE
 
 TRACKER_URL = "https://github.com/ccfddl/ccf-deadlines/archive/refs/heads/main.tar.gz"
 
@@ -344,51 +331,39 @@ def sync(conferences_raw, conferences_live, index, state, today):
     return log
 
 
-def main():
-    parser = argparse.ArgumentParser(description="Sync dates from the ccfddl tracker.")
-    parser.add_argument("--dry-run", action="store_true", help="show changes, save nothing")
-    parser.add_argument("--today", metavar="YYYY-MM-DD", help="pretend today is this date")
-    parser.add_argument("--source", metavar="PATH",
-                        help="use a local copy of the tracker instead of downloading (for testing)")
-    args = parser.parse_args()
-
+def run(today=None, source=None, save=True):
+    """
+    Do one sync. Returns a small summary dictionary and never raises:
+    trouble reaching the tracker must not stop the reminders from going out.
+    """
     try:
         import yaml  # noqa: F401
     except ImportError:
-        print("Skipping the sync: the 'pyyaml' package is not installed.\n"
-              "Install it once with:  pip install pyyaml")
-        return
+        return {"ok": False, "message": "pyyaml is not installed", "log": [], "applied": 0}
+
+    _, _, raw = confdata.load(with_overrides=False)
+    _, _, live = confdata.load()
+    today = today or confdata.today_aoe()
 
     try:
-        _, _, raw = confdata.load(with_overrides=False)
-        _, _, live = confdata.load()
-    except confdata.DataError as e:
-        confdata.fail(str(e))
-    today = date.fromisoformat(args.today) if args.today else confdata.today_aoe()
-
-    try:
-        index = download_tracker(args.source)
-    except Exception as e:  # network trouble must never break the daily run
-        print(f"Skipping the sync: could not get the tracker ({e}).")
-        return
-    if len(index) < 5 and not args.source:
-        print("Skipping the sync: the tracker download looks empty.")
-        return
+        index = download_tracker(source)
+    except Exception as e:
+        return {"ok": False, "message": f"could not get the tracker ({e})", "log": [], "applied": 0}
+    if len(index) < 5 and not source:
+        return {"ok": False, "message": "the tracker download looks empty", "log": [], "applied": 0}
 
     state = confdata.read_tracker_state()
     log = sync(raw, live, index, state, today)
-    applied = [line for line in log if line.endswith("(applied)")]
-    print(f"Checked {len(raw)} conferences against the tracker ({len(index)} names known).")
-    print("\n".join(log) if log else "  Everything matches.")
-    print(f"{len(applied)} date(s) updated automatically.")
-
-    if args.dry_run:
-        print("Dry run: nothing was saved.")
-        return
-    state["last_sync"] = today.isoformat()
-    TRACKER_STATE.parent.mkdir(exist_ok=True)
-    TRACKER_STATE.write_text(json.dumps(state, indent=1, sort_keys=True) + "\n", encoding="utf-8")
+    applied = sum(1 for line in log if line.endswith("(applied)"))
+    if save:
+        state["last_sync"] = today.isoformat()
+        confdata.write_tracker_state(state)
+    return {"ok": True, "message": f"checked {len(raw)} conferences, {applied} date(s) updated",
+            "log": log, "applied": applied}
 
 
 if __name__ == "__main__":
-    main()
+    # Manual check from the repository folder:  python -m app.sync_dates
+    result = run(save="--dry-run" not in sys.argv)
+    print(result["message"])
+    print("\n".join(result["log"]))

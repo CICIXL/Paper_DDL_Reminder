@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}{{ site_name }}: conference deadlines for ML, NLP, vision and systems{% endblock %}
+{% block content %}
+  <section class="top">
+    <p class="eyebrow">{{ count }} conferences tracked</p>
+    <h1>Never miss a paper deadline.</h1>
+    <p class="tagline">{{ tagline }}</p>
+    <div class="actions">
+      <a class="btn primary" href="/subscribe">Get email reminders</a>
+      <a class="btn" href="/deadlines.ics">Add to calendar (.ics)</a>
+    </div>
+  </section>
+
+  <section class="nextup" aria-label="Next deadlines">
+    <h2>Next up</h2>
+    <ol id="nextup">{{ next_up }}</ol>
+  </section>
+
+  <nav class="filters" aria-label="Filter by area">
+    <button class="filter on" data-area="">All</button>
+    {% for area, slug in areas %}<button class="filter a-{{ slug }}" data-area="{{ area }}">{{ area }}</button>{% endfor %}
+  </nav>
+
+  <main class="grid" id="grid">{{ cards }}</main>
+{% endblock %}
+{% block footnote %}<p>Dates last verified by hand against official sites: {{ verified }}. Last tracker sync: {{ synced }}.</p>{% endblock %}

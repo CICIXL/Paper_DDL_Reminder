@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Manage your reminders | {{ site_name }}{% endblock %}
+{% block content %}
+  <main class="page narrow">
+    <section class="top">
+      <h1>Your reminders</h1>
+      <p class="tagline">Signed up as {{ email }}. Bookmark this page: it is your private link, and there is no password.</p>
+    </section>
+    {% if welcome and not saved %}<p class="alert ok" role="status">You are confirmed. Reminders start with the next daily run.</p>{% endif %}
+    {% if saved %}<p class="alert ok" role="status">Saved.{% if not picked_areas and not picked_series %} You are not following anything now, so you will not get emails.{% endif %}</p>{% endif %}
+    <form method="post" action="/manage/{{ token }}">
+      {% include "_choices.html" %}
+      <div class="formfoot">
+        <button class="btn primary" type="submit">Save my choices</button>
+        <a href="/unsubscribe/{{ token }}">Unsubscribe and delete my data</a>
+      </div>
+    </form>
+  </main>
+{% endblock %}

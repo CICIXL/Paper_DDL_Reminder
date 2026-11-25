@@ -1,0 +1,23 @@
+<div class="panel">
+  <h2>Follow whole areas</h2>
+  <p class="hint">You get every conference in a ticked area, including ones added later.</p>
+  <div class="picks">
+    {% for area in areas %}
+    <label class="pick a-{{ area|lower|replace(' ', '-') }}"><input type="checkbox" name="area" value="{{ area }}" {{ 'checked' if area in picked_areas }}><span>{{ area }}</span></label>
+    {% endfor %}
+  </div>
+</div>
+<div class="panel">
+  <h2>Or pick individual conferences</h2>
+  <p class="hint">Following a conference carries over to next year's edition.</p>
+  {% for area, items in groups %}
+  <div class="group a-{{ area|lower|replace(' ', '-') }}">
+    <h3>{{ area }}</h3>
+    <div class="picks">
+      {% for item in items %}
+      <label class="pick" title="{{ item.full }}"><input type="checkbox" name="series" value="{{ item.key }}" {{ 'checked' if item.key in picked_series }}><span>{{ item.name }}</span></label>
+      {% endfor %}
+    </div>
+  </div>
+  {% endfor %}
+</div>

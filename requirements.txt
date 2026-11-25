@@ -1,0 +1,4 @@
+# What the server installs. Keep in step with pyproject.toml.
+flask>=3.0,<4
+gunicorn>=22
+pyyaml>=6

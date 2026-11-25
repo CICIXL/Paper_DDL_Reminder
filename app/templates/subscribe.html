@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Get conference deadline reminders by email | {{ site_name }}{% endblock %}
+{% block description %}Pick the conferences you follow and get an email before each abstract, paper, rebuttal and decision date. Free, no account, unsubscribe in one click.{% endblock %}
+{% block content %}
+  <main class="page narrow">
+    <section class="top">
+      <h1>Get reminders</h1>
+      <p class="tagline">Pick what you follow. You get a short email before each abstract, paper, rebuttal and decision date, and when a date moves. No account or password.</p>
+    </section>
+    {% if error %}<p class="alert error" role="alert">{{ error }}</p>{% endif %}
+    <form method="post" action="/subscribe" novalidate>
+      <div class="panel">
+        <label class="field" for="email">Your email</label>
+        <input type="email" id="email" name="email" value="{{ email }}" autocomplete="email" required placeholder="you@university.edu">
+        <div class="hp" aria-hidden="true"><label>Leave this empty <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+      </div>
+      {% include "_choices.html" %}
+      <div class="formfoot">
+        <button class="btn primary" type="submit">Send me a confirmation link</button>
+        <small>We only store your email and choices. <a href="/privacy">Privacy</a></small>
+      </div>
+    </form>
+  </main>
+{% endblock %}

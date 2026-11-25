@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}{{ site_name }}{% endblock %}</title>
+<meta name="description" content="{% block description %}Deadlines for the big machine learning, NLP, vision and systems conferences, with email reminders for the ones you follow.{% endblock %}">
+{% if private %}<meta name="robots" content="noindex">{% else %}<link rel="canonical" href="{{ base_url }}{{ request.path }}">{% endif %}
+<meta property="og:site_name" content="{{ site_name }}">
+<meta property="og:title" content="{{ self.title() }}">
+<meta property="og:description" content="{{ self.description() }}">
+<meta property="og:type" content="website">
+<link rel="alternate" type="text/calendar" title="{{ site_name }} calendar" href="/deadlines.ics">
+<link rel="stylesheet" href="{{ url_for('static', filename='site.css') }}">
+</head>
+<body>
+<div class="wrap">
+  <nav class="nav" aria-label="Main">
+    <a class="brand" href="/">Paper<span>DDL</span></a>
+    <div class="nav-links">
+      <a href="/">Deadlines</a>
+      <a href="/about">About</a>
+      <a class="cta" href="/subscribe">Get reminders</a>
+    </div>
+  </nav>
+  {% block content %}{% endblock %}
+  <footer>
+    <p>Deadlines are end of day <strong>Anywhere on Earth</strong> (UTC&minus;12) unless a card says otherwise. Countdowns use your device clock.</p>
+    <p>Dates are synced daily from the community tracker <a href="https://ccfddl.com/" rel="noopener">ccfddl</a>. Dates tagged <em>auto-updated</em> or <em>unconfirmed</em> came from a tracker and have not been checked by a person. Dates can move, so always confirm on the official conference site.</p>
+    {% block footnote %}{% endblock %}
+    <p><a href="/about">About</a> &middot; <a href="/privacy">Privacy</a> &middot; <a href="/deadlines.ics">Calendar feed</a></p>
+  </footer>
+</div>
+<script src="{{ url_for('static', filename='site.js') }}"></script>
+</body>
+</html>

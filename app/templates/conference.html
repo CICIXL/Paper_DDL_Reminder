@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}{{ conf.name }} deadlines: submission, rebuttal and decision dates | {{ site_name }}{% endblock %}
+{% block description %}{{ conf.name }}{% if conf.full_name %} ({{ conf.full_name }}){% endif %}{% if summary %}: {{ summary }}{% endif %}. Get an email reminder before each date.{% endblock %}
+{% block content %}
+  <main class="page">
+    <p class="crumbs"><a href="/">All deadlines</a> / {{ conf.name }}</p>
+    <h1>{{ conf.name }} deadlines</h1>
+    {% if conf.full_name %}<p class="tagline">{{ conf.full_name }}{% if conf.location %}, {{ conf.location }}{% endif %}.</p>{% endif %}
+    <div class="single">{{ card }}</div>
+    <div class="actions">
+      <a class="btn primary" href="/subscribe?c={{ series }}">Get reminders for {{ series_name }}</a>
+      <a class="btn" href="/">See all conferences</a>
+    </div>
+  </main>
+{% endblock %}

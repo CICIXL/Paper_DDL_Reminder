@@ -1,189 +1,145 @@
-# Conference deadline reminders
+# PaperDDL
 
-A small website that lists the big 2027 conferences (ML, NLP, vision, systems,
-AI for science) with live countdowns, plus a daily job that emails a short
-reminder to a list of people when a date is getting close.
+A website that lists deadlines for major computer science conferences and
+emails each subscriber before the dates of the conferences they follow.
 
-Everything is plain Python and needs Python 3.11 or newer. The site and the
-emails need **nothing installed**. Only the automatic date sync uses one extra
-package (`pip install pyyaml`), and GitHub installs that for you.
+- People sign up with an email address and tick areas or individual conferences.
+- They confirm through a link sent to that address. There are no passwords.
+- Every email carries a private link to change choices or unsubscribe.
+- Once a day the app syncs dates from the [ccfddl](https://github.com/ccfddl/ccf-deadlines)
+  community tracker and sends each person one email with whatever is due.
 
 ## What is in this folder
 
-| File | What it is |
+| Path | What it is |
 |---|---|
-| `conferences.toml` | **The data.** Every conference and date, plus settings. This is the file you edit. |
-| `build_site.py` | Turns the data into the web page (`docs/index.html`) and a calendar feed (`docs/deadlines.ics`). |
-| `sync_dates.py` | Pulls new and moved dates from a community tracker every day, so the site updates itself. |
-| `send_reminders.py` | Works out what is due today and sends the emails. |
-| `confdata.py` | Shared helper code used by both scripts. |
-| `.github/workflows/daily.yml` | Tells GitHub to run both scripts every day, for free. |
-| `state/sent_log.json` | The script's memory of which reminders already went out. Leave it alone. |
-| `state/tracker.json` | Created by the sync: the dates it updated automatically. Leave it alone. |
-| `subscribers.example.txt` | Shows the format for the list of people. |
+| `conferences.toml` | **The conference data.** Dates, locations, reminder rules. The file you edit. |
+| `app/main.py` | The web app: every address the site answers. Start reading here. |
+| `app/confdata.py` | Reads `conferences.toml` and answers questions about dates. |
+| `app/cards.py` | Builds the conference cards and the calendar feed. |
+| `app/db.py` | The database: subscribers, what they follow, what they were sent. |
+| `app/emailer.py` | Writes the emails and sends them through Resend. |
+| `app/reminders.py` | Decides who gets which reminder; runs the daily task. |
+| `app/sync_dates.py` | Pulls new and moved dates from the tracker. |
+| `app/config.py` | Every setting the app reads from its environment. |
+| `app/templates/`, `app/static/` | The pages, styles and countdown script. |
+| `tests/test_app.py` | Automated checks of the whole flow. |
+| `render.yaml` | Tells Render how to run the app. |
+| `state/tracker.json` | A starting copy of the sync's memory. |
+| `.github/workflows/daily.yml` | A backup trigger for the daily task. |
 
-## How it works, in one paragraph
+## Run it on your own computer
 
-Once a day GitHub runs `sync_dates.py` (picks up new and moved dates),
-`build_site.py` (refreshes the page) and then `send_reminders.py`. The second script looks at every date in
-`conferences.toml`, compares it with today, and checks the `[reminders]`
-rules, for example "paper deadline: nudge 30, 7 and 1 days before".
-Everything due that day is bundled into **one** email per person. If nothing
-is due, nobody hears anything.
-
-## Try it on your own computer first
-
-Open a terminal in this folder and run:
+You need [uv](https://docs.astral.sh/uv/). From this folder:
 
 ```
-python3 build_site.py
+uv sync
+uv run flask --app app.main run --debug
 ```
 
-Then open `docs/index.html` in your browser. That is the website.
+Open http://127.0.0.1:5000. In this local mode no email is sent: each email is
+printed in the terminal instead, including the confirmation link, so you can
+try the whole sign-up flow. The database is created in a local `data/` folder.
 
-To see which emails would go out today, without sending anything:
-
-```
-python3 send_reminders.py --dry-run
-```
-
-To check a different day, add a date:
+Run the automated tests:
 
 ```
-python3 send_reminders.py --dry-run --today 2027-01-15
+uv run pytest
 ```
 
-## Put it online (about 20 minutes, free)
+## Put it online
 
-### 1. Create the repository
-1. Sign in at github.com and click **New repository**.
-2. Give it a name (for example `conference-deadlines`), choose **Public**, and create it.
-   It has to be public for the free website hosting. Email addresses and
-   passwords are stored separately as secrets and are never visible.
-3. On the new repository page choose **uploading an existing file** and drag in
-   everything from this folder, including the `.github` folder. (`.github` is a
-   hidden folder. On a Mac press Cmd+Shift+. in Finder to see it; on Windows turn
-   on "Hidden items" in File Explorer's View menu.)
+You need three accounts: a domain registrar, [Resend](https://resend.com) for
+email, and [Render](https://render.com) for hosting.
 
-### 2. Turn on the website
-1. In the repository go to **Settings → Pages**.
-2. Under "Build and deployment" set Source to **Deploy from a branch**,
-   branch **main**, folder **/docs**, then Save.
-3. After a minute the page shows your site address, something like
-   `https://yourname.github.io/conference-deadlines/`.
-4. Open `conferences.toml` on GitHub (pencil icon to edit) and paste that
-   address into `site_url = ""`, so the emails can link to the site.
+### 1. Domain
+Buy the domain (for example `paperddl.com`) at any registrar.
 
-### 3. Set up the sending email account
-The simplest route is a Gmail account (a new one made just for this is a good idea).
-1. Turn on 2-Step Verification for that Google account.
-2. Go to https://myaccount.google.com/apppasswords and create an app password.
-   You get 16 letters. That is what the script logs in with, not your real password.
+### 2. Resend (email)
+1. Create an account, go to **Domains**, and add your domain.
+2. Resend shows a few DNS records. Add each one in your registrar's DNS settings,
+   exactly as shown, then press **Verify** in Resend. This can take minutes to hours.
+3. Go to **API Keys**, create a key, and copy it.
 
-### 4. Add the secrets
-In the repository go to **Settings → Secrets and variables → Actions → New repository secret**
-and add these three:
+### 3. Render (hosting)
+1. Create an account and add a payment method.
+2. Choose **New > Blueprint** and connect this GitHub repository. Render reads `render.yaml`.
+3. It asks for three values:
+   - `RESEND_API_KEY`: the key from Resend.
+   - `CONTACT_EMAIL`: an address you read. It is shown on the About and Privacy pages.
+   - `BASE_URL`: leave empty for now.
+4. Apply. After a few minutes the app is live at an address ending in `onrender.com`.
 
-| Name | Value |
+### 4. Connect the domain
+1. In Render open the service, then **Settings > Custom Domains**, and add your domain.
+2. Add the DNS records Render shows at your registrar.
+3. When Render shows the domain as verified, set `BASE_URL` to `https://yourdomain`
+   under **Environment** and save. The links inside emails now use your domain.
+
+If your domain is not `paperddl.com`, also change `MAIL_FROM` under **Environment**
+to an address at your domain, for example `PaperDDL <reminders@yourdomain>`.
+
+### 5. Check it
+1. Open the site and subscribe with your own address.
+2. Click the link in the confirmation email. You should land on your manage page.
+3. Optional: add the repository secrets `APP_URL` and `TASK_TOKEN` (copy the token
+   from Render's Environment page), then run **Actions > Daily task > Run workflow**
+   to trigger the daily task by hand and see its summary in the log.
+
+## Settings
+
+All set in Render under **Environment**.
+
+| Name | Meaning |
 |---|---|
-| `SMTP_USER` | the Gmail address, e.g. `ourlab.reminders@gmail.com` |
-| `SMTP_PASSWORD` | the 16-letter app password |
-| `SUBSCRIBERS` | the people to email, one address per line |
+| `RESEND_API_KEY` | Resend key. Without it, emails are printed, not sent. |
+| `MAIL_FROM` | Sender shown on emails. Its domain must be verified in Resend. |
+| `BASE_URL` | The site's public address, used for links in emails. |
+| `CONTACT_EMAIL` | Shown on the About and Privacy pages. |
+| `TASK_TOKEN` | Password for the `/tasks/...` addresses. Render generates it. |
+| `DATA_DIR` | Folder for the database. On Render, the persistent disk. |
+| `ENABLE_SCHEDULER` | `1` makes the app run the daily task by itself. |
+| `DAILY_EMAIL_CAP` | Stop sending for the day at this many emails. Default 95, because Resend's free plan allows 100 a day. Raise it if you move to a paid plan. |
 
-The `SUBSCRIBERS` secret can limit someone to certain areas:
+## The daily task
 
-```
-alex@example.com
-sam@example.com | NLP, Systems
-```
+Runs at 14:17 UTC from a clock inside the app. It:
 
-A line with no `|` gets everything. To add or remove someone later, edit this secret.
+1. syncs dates from the tracker,
+2. emails each confirmed subscriber the reminders for what they follow,
+3. deletes sign-ups that were never confirmed after 7 days.
 
-(Not using Gmail? Also add `SMTP_HOST` and `SMTP_PORT` for your provider.)
+Reminder timing lives in the `[reminders]` section of `conferences.toml`. Each
+number is "days before". Nobody is sent the same reminder twice, and if a day's
+run is missed, the reminder goes out on the next run with the true number of
+days left.
 
-### 5. Test it
-1. Go to the **Actions** tab. If GitHub asks, enable workflows.
-2. Pick **Daily update → Run workflow**.
-3. Click the run to see the log. It lists what was due and who was emailed
-   (addresses are partly hidden in the log).
+If the daily email cap is reached, the remaining people get their email on the
+next run.
 
-From now on it runs by itself every day at about 6am Pacific.
-
-## How the dates update themselves
-
-Every day `sync_dates.py` downloads the community tracker
-[ccfddl](https://github.com/ccfddl/ccf-deadlines), which volunteers update
-when a conference announces or moves a date, and compares it with this project.
-
-| What the sync finds | What happens |
-|---|---|
-| A date we show as TBA is now on the tracker | Filled in automatically |
-| The tracker changed a date since the last run | Updated automatically |
-| The tracker disagrees with a date a person typed in, and has not moved | The typed date stays, and the card shows a "Check this" note |
-| The tracker says TBD, or does not list the conference | Nothing changes |
-
-Automatic updates go live straight away, with an **auto-updated** tag so
-everyone can see that no person has checked them yet. Subscribers get a
-"Date changes" box in their next email (sent that day even if no reminder is due).
-
-Things to know:
-
-- Automatic dates are stored in `state/tracker.json`, not in `conferences.toml`.
-- **Whatever a person types into `conferences.toml` always wins.** To confirm
-  an auto-updated date, type it in; the tag disappears.
-- The tracker mainly covers abstract and paper deadlines and conference dates.
-  Rebuttal and decision dates are often missing there, so those still need a
-  person (or the official site) from time to time.
-- The tracker can lag the official announcement by days or weeks, and it is
-  occasionally wrong. That is why auto-updated dates carry a tag.
-- The run log on the Actions tab lists everything the sync did, including any
-  conference it could not find on the tracker. If one is "not found", check
-  the `tracker = [...]` name for that conference in `conferences.toml`.
-- If the tracker is unreachable one day, the sync is skipped and everything
-  else still runs.
-
-To try it on your own computer (needs `pip install pyyaml` once):
+To see subscriber counts and the last run's summary:
 
 ```
-python3 sync_dates.py --dry-run
+curl -H "Authorization: Bearer YOUR_TASK_TOKEN" https://yourdomain/tasks/stats
 ```
 
-## Editing dates by hand
+## Editing conference dates
 
-The sync does most of the work, but it is still worth looking over
-`conferences.toml` about once a month, mainly for rebuttal and decision dates.
+Edit `conferences.toml` on GitHub and commit. Render redeploys the site by itself.
 
-- Edit the file directly on GitHub (pencil icon) and commit. The site rebuilds
-  by itself within a minute or two.
-- A date that is not announced yet is simply left out. The site shows "TBA".
-- If you could not confirm a date on the official site, list it under
-  `unverified`. It is shown with an "unconfirmed" tag, on the site and in emails.
-- When you re-check everything, update `dates_verified` in `[settings]`.
-- If you change a date, people are reminded again on the new schedule.
+- A date that is not announced yet is left out; the site shows "TBA".
+- A date you could not confirm on the official site goes in that conference's
+  `unverified` list and is shown with a tag.
+- The tracker sync fills in and updates dates automatically with an
+  "auto-updated" tag. Whatever you type into the file always wins.
+- To add a conference, copy an existing `[[conference]]` block and give it a new `id`
+  ending in the year, such as `icml-2028`. People who follow `icml` get it automatically.
 
-To add a conference, copy an existing `[[conference]]` block, give it a new
-`id`, and change the details. If you make a typo, the script stops with a
-message saying which conference and which field.
+## Things to know
 
-### Changing how often people are nudged
-
-Edit the `[reminders]` section of `conferences.toml`. Each number is "days
-before". For example, for more paper-deadline emails:
-
-```
-submission = [30, 14, 7, 3, 1]
-```
-
-## Things worth knowing
-
-- **Timezone.** Deadlines are treated as end of day "Anywhere on Earth"
-  (UTC−12), which is what most ML conferences use. Where a conference uses a
-  different time, the card and the email say so.
-- **Missed runs.** If GitHub skips a day, the reminder goes out on the next
-  run and states the real number of days left.
-- **Gmail limits.** A free Gmail account can send roughly 500 emails a day,
-  far more than 10–20 people need.
-- **Spam folders.** Ask people to check spam the first time and mark the
-  sender as safe.
-- **Calendar.** The "Add to calendar" button on the site gives a `.ics` file.
-  Subscribing to its web address in Google or Apple Calendar keeps the dates in sync.
+- **One instance only.** The database is a single file on one disk, so the app
+  must not be scaled to several instances.
+- **Back up the disk.** Render can take disk snapshots. Subscribers exist only there.
+- **Email rules.** Sign-ups are confirmed by email and every reminder has a
+  one-click unsubscribe, in line with common anti-spam rules. Check the rules
+  that apply to you before sending at scale.

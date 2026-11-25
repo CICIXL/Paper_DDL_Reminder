@@ -1,5 +1,8 @@
-# Real email addresses stay off GitHub.
-subscribers.txt
+# The local database and sync memory. Never commit these: they hold email addresses.
+data/
+# Python and uv working files
+.venv/
 __pycache__/
 *.pyc
+.pytest_cache/
 .DS_Store

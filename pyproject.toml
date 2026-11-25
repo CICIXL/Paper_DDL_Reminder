@@ -1,11 +1,19 @@
 [project]
 name = "paper-ddl-reminder"
-version = "0.1.0"
-description = "Add your description here"
+version = "0.2.0"
+description = "PaperDDL: conference deadlines with email reminders"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
-    "fastapi[standard]>=0.165.0",
+    "flask>=3.0,<4",
+    "gunicorn>=22",
+    "pyyaml>=6",
 ]
 
+[dependency-groups]
+dev = [
+    "pytest>=8",
+]
 
+[tool.pytest.ini_options]
+testpaths = ["tests"]

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Unsubscribe | {{ site_name }}{% endblock %}
+{% block content %}
+  <main class="page narrow">
+    <section class="top">
+      <h1>Unsubscribe?</h1>
+      <p class="tagline">This stops all emails to {{ email }} and deletes the address and your choices.</p>
+    </section>
+    <form method="post" action="/unsubscribe/{{ token }}">
+      <div class="formfoot">
+        <button class="btn danger" type="submit">Yes, unsubscribe me</button>
+        <a href="/manage/{{ token }}">No, just change what I follow</a>
+      </div>
+    </form>
+  </main>
+{% endblock %}

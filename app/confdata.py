@@ -1,14 +1,14 @@
 """
-confdata.py - shared helper code.
+confdata.py - reads conferences.toml and answers questions about dates.
 
-Both build_site.py (makes the web page) and send_reminders.py (sends the
-emails) need to read conferences.toml and work out "how many days until X?".
-That logic lives here once, so the two scripts can never disagree.
-
-You should not need to edit this file.
+Every other part of the app (the pages, the reminders, the tracker sync)
+gets its conference data through this file, so they can never disagree.
 """
 
 import json
+import os
+import re
+import shutil
 import sys
 import tomllib  # built into Python 3.11+, reads .toml files
 from datetime import date, datetime, timedelta, timezone
@@ -16,10 +16,25 @@ from pathlib import Path
 
 # The folder this file lives in. Every other path is worked out from here,
 # so the scripts behave the same no matter where you run them from.
-ROOT = Path(__file__).resolve().parent
+ROOT = Path(__file__).resolve().parent.parent   # the repository folder
 DATA_FILE = ROOT / "conferences.toml"
-# Where sync_dates.py keeps the dates it updated automatically.
-TRACKER_STATE = ROOT / "state" / "tracker.json"
+# A starting copy of the sync's memory, kept in the repository.
+SEED_STATE = ROOT / "state" / "tracker.json"
+
+
+def state_dir():
+    """
+    Where files that must survive restarts are kept (the database and the
+    sync's memory). On the server this is the persistent disk; on your own
+    computer it defaults to a local "data" folder.
+    """
+    folder = Path(os.environ.get("DATA_DIR") or (ROOT / "data"))
+    folder.mkdir(parents=True, exist_ok=True)
+    return folder
+
+
+def tracker_state_path():
+    return state_dir() / "tracker.json"
 
 # "Anywhere on Earth" is the timezone most conferences use for deadlines.
 # It is 12 hours behind UTC: a deadline has not passed until it has passed
@@ -76,10 +91,31 @@ def _to_date(value, where):
 
 def read_tracker_state():
     """What sync_dates.py saved last time (empty if it has never run)."""
+    path = tracker_state_path()
+    if not path.exists() and SEED_STATE.exists():
+        shutil.copyfile(SEED_STATE, path)   # first start: begin from the seed
     try:
-        return json.loads(TRACKER_STATE.read_text(encoding="utf-8"))
+        return json.loads(path.read_text(encoding="utf-8"))
     except (FileNotFoundError, json.JSONDecodeError):
         return {}
+
+
+def write_tracker_state(state):
+    tracker_state_path().write_text(
+        json.dumps(state, indent=1, sort_keys=True) + "\n", encoding="utf-8")
+
+
+def series_name(conf):
+    """The display name without its year: "OSDI '27" -> 'OSDI'."""
+    return re.sub(r"[\s'\u2019\-]*(?:19|20)?\d{2}$", "", conf["name"]).strip() or conf["name"]
+
+
+def series(conf):
+    """
+    The conference without its year: 'icml-2027' -> 'icml'.
+    People follow a series, so they keep getting reminders next year too.
+    """
+    return re.sub(r"-?(19|20)\d{2}$", "", conf["id"]) or conf["id"]
 
 
 def apply_overrides(conf, overrides):

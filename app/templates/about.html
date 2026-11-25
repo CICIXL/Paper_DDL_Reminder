@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}About {{ site_name }}{% endblock %}
+{% block description %}{{ site_name }} tracks deadlines for major computer science conferences and emails you before the ones you follow.{% endblock %}
+{% block content %}
+  <main class="page narrow">
+    <section class="top">
+      <h1>About {{ site_name }}</h1>
+      <p class="tagline">One place for the dates that matter when you are writing a paper, and a nudge before each of them.</p>
+    </section>
+    <div class="panel">
+      <h2>What it does</h2>
+      <p>{{ site_name }} lists abstract, submission, rebuttal, decision and conference dates for major machine learning, NLP, vision, systems and AI-for-science conferences. Pick the ones you follow and you get a short email before each date, and when a date moves.</p>
+    </div>
+    <div class="panel">
+      <h2>Where the dates come from</h2>
+      <p>Dates are entered by hand from official conference sites and synced every day with the community tracker <a href="https://ccfddl.com/" rel="noopener">ccfddl</a>. A date tagged <em>auto-updated</em> or <em>unconfirmed</em> came from a tracker and has not been checked by a person.</p>
+      <p>Conferences change their dates, and trackers lag or make mistakes. Treat this site as a reminder, and confirm every date on the official site before you rely on it.</p>
+    </div>
+    <div class="panel">
+      <h2>How reminders work</h2>
+      <p>Paper deadlines get a reminder 30, 7 and 1 days ahead. Abstract and commitment deadlines get one 7 days and 1 day ahead. Rebuttal windows, decisions and the conference itself get one each. Everything due on the same day arrives as a single email.</p>
+      <p>There is no account. Every email carries your private link for changing what you follow or unsubscribing.</p>
+    </div>
+    {% if contact_email %}<div class="panel"><h2>Contact</h2><p>Spotted a wrong date or a missing conference? Write to <a href="mailto:{{ contact_email }}">{{ contact_email }}</a>.</p></div>{% endif %}
+  </main>
+{% endblock %}

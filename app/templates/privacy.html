@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Privacy | {{ site_name }}{% endblock %}
+{% block description %}What {{ site_name }} stores about subscribers, why, and how to delete it.{% endblock %}
+{% block content %}
+  <main class="page narrow">
+    <section class="top">
+      <h1>Privacy</h1>
+      <p class="tagline">{{ site_name }} stores as little as it can: your email address and the conferences you chose.</p>
+    </section>
+    <div class="panel">
+      <h2>What is stored</h2>
+      <p>If you subscribe: your email address, the areas and conferences you ticked, when you signed up and confirmed, and a record of which reminders were already sent to you so you do not get them twice.</p>
+      <p>If you only browse: nothing. The site sets no cookies and uses no analytics or advertising trackers.</p>
+    </div>
+    <div class="panel">
+      <h2>What it is used for</h2>
+      <p>Only to send the reminders you asked for. Your address is never sold, shared for marketing, or used for anything else.</p>
+    </div>
+    <div class="panel">
+      <h2>Who handles it</h2>
+      <p>The site and its database are hosted by Render. Emails are delivered by Resend. Both act only on this site's instructions. Like any web host, they keep short-lived technical logs such as IP addresses.</p>
+    </div>
+    <div class="panel">
+      <h2>Deleting your data</h2>
+      <p>Every email has an unsubscribe link. Using it deletes your address and choices immediately. Sign-ups that are never confirmed are deleted after 7 days.</p>
+      {% if contact_email %}<p>Questions or requests: <a href="mailto:{{ contact_email }}">{{ contact_email }}</a>.</p>{% endif %}
+    </div>
+  </main>
+{% endblock %}
