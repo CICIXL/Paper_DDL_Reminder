@@ -52,9 +52,8 @@ She is learning backend engineering and wants to understand this code.
 ## Current status (2026-11-24)
 
 - App built, tested and pushed. Not deployed yet.
-- Waiting on Cici: buy the domain (`paperddl.com` was her pick; not checked for
-  availability), create Resend and Render accounts, follow the deploy steps in
-  `README.md`.
+- Domain bought: `paperddl.org`. Cici is adding Resend's DNS records at her
+  registrar, then deploying on Render with the steps in `README.md`.
 - Not verified in the build environment: the live Resend API call, gunicorn
   startup, and the tracker download from Render. Each is standard but is first
   exercised on the live site. Test with a real sign-up before announcing.

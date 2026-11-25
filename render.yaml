@@ -22,7 +22,7 @@ services:
       - key: ENABLE_SCHEDULER
         value: "1"
       - key: MAIL_FROM
-        value: PaperDDL <reminders@paperddl.com>
+        value: PaperDDL <reminders@paperddl.org>
       - key: TASK_TOKEN
         generateValue: true       # Render invents a long random password
       - key: RESEND_API_KEY
@@ -30,4 +30,4 @@ services:
       - key: CONTACT_EMAIL
         sync: false               # an address you read; shown on About and Privacy
       - key: BASE_URL
-        sync: false               # https://paperddl.com once the domain is connected
+        sync: false               # https://paperddl.org once the domain is connected

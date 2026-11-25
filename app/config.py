@@ -28,7 +28,7 @@ def base_url():
 
 def mail_from():
     """The sender shown on emails. Its domain must be verified in Resend."""
-    return _env("MAIL_FROM", "PaperDDL <reminders@paperddl.com>")
+    return _env("MAIL_FROM", "PaperDDL <reminders@paperddl.org>")
 
 
 def resend_key():

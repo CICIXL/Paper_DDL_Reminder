@@ -53,7 +53,7 @@ You need three accounts: a domain registrar, [Resend](https://resend.com) for
 email, and [Render](https://render.com) for hosting.
 
 ### 1. Domain
-Buy the domain (for example `paperddl.com`) at any registrar.
+Buy the domain (for example `paperddl.org`) at any registrar.
 
 ### 2. Resend (email)
 1. Create an account, go to **Domains**, and add your domain.
@@ -76,7 +76,7 @@ Buy the domain (for example `paperddl.com`) at any registrar.
 3. When Render shows the domain as verified, set `BASE_URL` to `https://yourdomain`
    under **Environment** and save. The links inside emails now use your domain.
 
-If your domain is not `paperddl.com`, also change `MAIL_FROM` under **Environment**
+If your domain is not `paperddl.org`, also change `MAIL_FROM` under **Environment**
 to an address at your domain, for example `PaperDDL <reminders@yourdomain>`.
 
 ### 5. Check it
