@@ -49,14 +49,21 @@ She is learning backend engineering and wants to understand this code.
 - When she asks for code, give complete ready-to-run files, not patches.
 - **End each session with a short handoff note** in the section at the bottom.
 
-## Current status (2026-11-24)
+## Current status (2026-11-25)
 
-- App built, tested and pushed. Not deployed yet.
-- Domain bought: `paperddl.org`. Cici is adding Resend's DNS records at her
-  registrar, then deploying on Render with the steps in `README.md`.
-- Not verified in the build environment: the live Resend API call, gunicorn
-  startup, and the tracker download from Render. Each is standard but is first
-  exercised on the live site. Test with a real sign-up before announcing.
+- **Live at https://paperddl.org** on Render (service `paperddl`, Starter plan,
+  1 GB disk at `/var/data`). `www.paperddl.org` redirects to it.
+- Domain registered at Namecheap. DNS there holds four Resend records, an A
+  record for `@` and a CNAME for `www`.
+- Email through Resend with `paperddl.org` verified. A real sign-up and
+  confirmation worked, and the email landed in the inbox, not spam.
+- The daily task was triggered through the GitHub workflow and succeeded,
+  including the tracker sync from Render. The `APP_URL` and `TASK_TOKEN`
+  repository secrets are set.
+- Not yet seen on the live site: an actual reminder email, because nothing was
+  due for the one subscriber's areas. The same code path is covered by tests.
+- The Resend API key was created with Full access; switching it to Sending
+  access is a worthwhile tightening.
 - After launch: the AWS version, deeper SEO, and a weekly check of official
   conference sites were discussed and are not done.
 - `uv.lock` was removed because dependencies changed; `uv sync` recreates it.
@@ -78,3 +85,14 @@ She is learning backend engineering and wants to understand this code.
 ## Handoff notes
 
 _Add a dated entry at the end of each session._
+
+### 2026-11-25
+
+- **Works:** the public site, sign-up, confirmation, manage page, unsubscribe,
+  the daily task and the tracker sync, all on the live site.
+- **Cici set up herself:** the domain, the DNS records, Resend, the Render
+  Blueprint, the custom domain and the GitHub secrets.
+- **Not yet explained to her:** the code. She asked for it to be built first
+  and walked through later. Start with `app/main.py`, then `db.py`.
+- **Resume at:** watching the first automatic daily run (14:17 UTC), then the
+  code walkthrough, then deciding on SEO work and the weekly official-site check.
