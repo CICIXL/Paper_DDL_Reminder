@@ -62,7 +62,10 @@ def test_public_pages_load(client):
         assert client.get(path).status_code == 200, path
     assert client.get("/c/not-a-conference").status_code == 404
     home = client.get("/").get_data(as_text=True)
-    assert "ICML 2027" in home and "/subscribe?c=icml" in home
+    assert "ICML 2027" in home and 'href="/c/icml-2027"' in home
+    assert 'class="star"' in home and 'data-series="icml"' in home      # the favorite button
+    assert 'id="search"' in home and 'id="view-timeline"' in home       # search box and timeline view
+    assert "/subscribe?c=icml" in client.get("/c/icml-2027").get_data(as_text=True)
     assert 'rel="canonical" href="https://paperddl.test/"' in home
 
 

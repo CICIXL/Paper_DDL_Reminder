@@ -165,8 +165,8 @@ def create_app():
             tagline=settings.get("site_tagline", ""),
             count=len(conferences),
             areas=[(a, cards.slug(a)) for a in area_list(conferences)],
-            next_up=Markup(cards.next_up(conferences, now_ms)),
-            cards=Markup("".join(cards.card(c) for c in conferences)),
+            rows=Markup("".join(cards.list_row(c) for c in conferences)),
+            timeline=Markup(cards.timeline(conferences, now_ms)),
             verified=settings.get("dates_verified", "not recorded"),
             synced=tracker.get("last_sync", "not yet run"),
         )
@@ -180,6 +180,7 @@ def create_app():
         dates = [f"{ev['label'].lower()} {confdata.nice_date(ev['date'])}" for ev in confdata.events(conf)]
         return render_template(
             "conference.html", conf=conf, card=Markup(cards.card(conf)),
+            star=Markup(cards.star_button(conf)),
             series=confdata.series(conf), series_name=confdata.series_name(conf),
             summary="; ".join(dates),
         )

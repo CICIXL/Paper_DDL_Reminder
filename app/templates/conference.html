@@ -4,7 +4,7 @@
 {% block content %}
   <main class="page">
     <p class="crumbs"><a href="/">All deadlines</a> / {{ conf.name }}</p>
-    <h1>{{ conf.name }} deadlines</h1>
+    <h1 class="withstar">{{ conf.name }} deadlines {{ star }}</h1>
     {% if conf.full_name %}<p class="tagline">{{ conf.full_name }}{% if conf.location %}, {{ conf.location }}{% endif %}.</p>{% endif %}
     <div class="single">{{ card }}</div>
     <div class="actions">

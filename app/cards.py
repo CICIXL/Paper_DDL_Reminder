@@ -182,6 +182,97 @@ def next_up(conferences, now_ms, limit=6):
 
 
 # ---------------------------------------------------------------------------
+# Home page: the searchable list and the timeline
+# ---------------------------------------------------------------------------
+
+STAR = ('<svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" '
+        'stroke-width="1.8" stroke-linejoin="round"><path d="M12 3.5l2.6 5.4 5.9.8-4.3 4.1 1 5.8L12 16.9 '
+        '6.8 19.6l1-5.8-4.3-4.1 5.9-.8z"/></svg>')
+
+
+def star_button(conf):
+    """The favourite toggle. The script in site.js makes it work."""
+    return (f'<button class="star" type="button" aria-pressed="false" data-series="{esc(series(conf))}" '
+            f'aria-label="Favorite {esc(conf["name"])}" title="Add to favorites">{STAR}</button>')
+
+
+def search_text(conf):
+    """Everything the search box should match for one conference, in lower case."""
+    parts = [conf["name"], conf.get("full_name", ""), conf.get("location", ""), series(conf)] + conf["areas"]
+    return esc(" ".join(parts).lower())
+
+
+def _shared_attrs(conf):
+    return (f'data-series="{esc(series(conf))}" data-areas="{esc("|".join(conf["areas"]))}" '
+            f'data-search="{search_text(conf)}"')
+
+
+def list_row(conf):
+    """One conference as one line of the home page list."""
+    accent = f"a-{slug(conf['areas'][0])}" if conf["areas"] else ""
+    milestones = [{"l": ev["label"], "t": ms(moment_utc(conf, ev["kind"])), "d": ev["is_deadline"],
+                   "w": nice_date(ev["date"]),
+                   "g": "auto-updated" if ev["auto"] else ("unconfirmed" if ev["unverified"] else "")}
+                  for ev in events(conf)]
+    conf_end = ""
+    if conf.get("conference_start"):
+        end = conf.get("conference_end") or conf["conference_start"]
+        conf_end = ms(moment_utc(dict(conf, conference_end=end), "conference_end"))
+    areas = "".join(f'<span class="area a-{slug(a)}">{esc(a)}</span>' for a in conf["areas"])
+    return f"""
+<li class="conf {accent}" {_shared_attrs(conf)} data-conf-end="{conf_end}"
+    data-milestones='{esc(json.dumps(milestones), quote=True)}'>
+  {star_button(conf)}
+  <div class="who">
+    <div class="nameline"><a class="name" href="/c/{esc(conf["id"])}">{esc(conf["name"])}</a>{areas}</div>
+    <div class="sub">{esc(conf.get("location", ""))}</div>
+  </div>
+  <div class="nextdate"><div class="what">&nbsp;</div><div class="when sub">&nbsp;</div></div>
+  <div class="left">&nbsp;</div>
+</li>"""
+
+
+def timeline(conferences, now_ms):
+    """Every upcoming date of every conference, soonest first, grouped by month."""
+    items = []
+    for conf in conferences:
+        for ev in events(conf):
+            t = ms(moment_utc(conf, ev["kind"]))
+            if t > now_ms:
+                items.append((t, conf, ev))
+    items.sort(key=lambda x: (x[0], x[1]["name"]))
+
+    out, current = [], None
+    for t, conf, ev in items:
+        month = f"{ev['date']:%B %Y}"
+        if month != current:
+            if current is not None:
+                out.append("</ol></section>")
+            out.append(f'<section class="month"><h2>{esc(month)}</h2><ol class="tl-list">')
+            current = month
+        accent = f"a-{slug(conf['areas'][0])}" if conf["areas"] else ""
+        areas = "".join(f'<span class="area a-{slug(a)}">{esc(a)}</span>' for a in conf["areas"])
+        tag = ""
+        if ev["auto"]:
+            tag = ' <span class="tag">auto-updated</span>'
+        elif ev["unverified"]:
+            tag = ' <span class="tag">unconfirmed</span>'
+        out.append(f"""
+<li class="tl {accent}" {_shared_attrs(conf)} data-t="{t}" data-d="{1 if ev['is_deadline'] else 0}">
+  <div class="tl-date"><span class="day">{ev['date'].day}</span><span class="dow">{ev['date']:%a}</span></div>
+  <div class="who">
+    <div class="nameline"><a class="name" href="/c/{esc(conf["id"])}">{esc(conf["name"])}</a>{areas}</div>
+    <div class="sub">{esc(ev["label"])}{tag}</div>
+  </div>
+  <div class="left">&nbsp;</div>
+  {star_button(conf)}
+</li>""")
+    if current is not None:
+        out.append("</ol></section>")
+    return "".join(out)
+
+
+# ---------------------------------------------------------------------------
 # Calendar feed (.ics)
 # ---------------------------------------------------------------------------
 

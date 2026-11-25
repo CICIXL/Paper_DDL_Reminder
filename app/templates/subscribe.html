@@ -8,7 +8,8 @@
       <p class="tagline">Pick what you follow. You get a short email before each abstract, paper, rebuttal and decision date, and when a date moves. No account or password.</p>
     </section>
     {% if error %}<p class="alert error" role="alert">{{ error }}</p>{% endif %}
-    <form method="post" action="/subscribe" novalidate>
+    <p class="alert ok" id="favnote" hidden>Your starred conferences are ticked below. Change anything you like.</p>
+    <form method="post" action="/subscribe" novalidate id="subscribe-form">
       <div class="panel">
         <label class="field" for="email">Your email</label>
         <input type="email" id="email" name="email" value="{{ email }}" autocomplete="email" required placeholder="you@university.edu">

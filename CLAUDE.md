@@ -33,6 +33,15 @@ GitHub job) was removed with her agreement.
   A series is the conference id without its year, so follows carry over.
 - **Daily task** runs from a thread inside the app at 14:17 UTC
   (`ENABLE_SCHEDULER=1`), with `.github/workflows/daily.yml` as a backup trigger.
+- **Home page** (redesigned 2026-11-25): a searchable list of conferences with a
+  List / Timeline switch, area filters and a star on each conference.
+  `app/cards.py` builds the HTML rows, `app/static/site.js` does search,
+  filters, the view switch, countdowns and stars in the browser.
+- **Favorites (stars) live in the visitor's browser** (`localStorage`, key
+  `paperddl:favorites`), not in the database. No login. "Get email reminders
+  for them" links to `/subscribe?c=icml&c=acl`, which pre-ticks the form. A
+  subscriber's manage page copies their follows into the stars. Favorites that
+  follow a person across devices would need accounts; not built.
 - See `README.md` for the file map, settings and deploy steps.
 
 Run locally: `uv sync`, then `uv run flask --app app.main run --debug`.
@@ -96,3 +105,15 @@ _Add a dated entry at the end of each session._
   and walked through later. Start with `app/main.py`, then `db.py`.
 - **Resume at:** watching the first automatic daily run (14:17 UTC), then the
   code walkthrough, then deciding on SEO work and the weekly official-site check.
+
+### 2026-11-25 (later): front-end redesign
+
+- **Why:** the first look was judged messy. Cici picked two of three mockups:
+  the searchable list and the timeline by month, plus favorites.
+- **Shipped:** new home page (list + timeline views, instant search, area
+  filters, stars, Favorites filter), restyled conference, sign-up and manage
+  pages, dark mode, mobile layout. No back-end or database change.
+- **Checked:** 18 tests pass; search, filters, stars, view switch and the
+  pre-ticked sign-up form were exercised in a real browser locally.
+- **Resume at:** Cici and her partner review the live look; then the code
+  walkthrough (`app/main.py`, `db.py`, then `cards.py` and `site.js`).
